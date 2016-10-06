@@ -1,0 +1,157 @@
+<dl>
+<% if @g_user.admin? %>
+	<dt><label for="order_deadline">Дата оформления заказа:</label></dt>
+	<dd><%= f.datetime_select :date_order, :default => Time.now %></dd>
+<% end %>
+	<dd class="error"><%= error_message_on :order, :date_order %></dd>
+	
+	<dt><label for="order_deadline">Дата сдачи:</label></dt>
+	<dd><%= f.datetime_select :deadline, :default => 2.days.from_now %></dd>
+	<dd class="error"><%= error_message_on :order, :deadline %></dd>
+
+	<dt><label for="order_product_type_id">Вид продукции:</label></dt>
+	<dd><%= f.select 'product_type_id', ProductType.get_list.collect(){|i| [i.name, i.id]} %></dd>
+	<dd class="error"><%= error_message_on :order, :product_type_id %></dd>
+
+	<dt><label for="order_is_mysqlf_print_method">Кто печатает:</label></dt>
+	<dd><%= f.radio_button :is_mysqlf_print_method, true %>Печатаем сами</dd>
+	<dd><%= f.radio_button :is_mysqlf_print_method, false %>Печатает контрагент</dd>
+	<dd class="error"><%= error_message_on :order, :is_mysqlf_print_method %></dd>
+
+	<dt><label for="order_contractor_id">Контрагент:</label></dt>
+	<dd><%= f.select 'contractor_id', Contractor.get_list.collect(){|i| [i.name, i.id]}, {:include_blank => true} %></dd>
+	<dd class="error"><%= error_message_on :order, :contractor_id %></dd>
+
+	<dt><label for="order_print_method_id">Способ печати:</label></dt>
+	<dd><%= f.select 'print_method_id', PrintMethod.get_list.collect(){|i| [i.name, i.id]}, {:include_blank => true} %></dd>
+	<dd class="error"><%= error_message_on :order, :print_method_id %></dd>
+
+	<dt><label for="order_format_w">Обрезной формат:</label></dt>
+	<dd><%= f.text_field 'format_w', :size=>5 %>x<%= f.text_field 'format_h', :size=>5 %></dd>
+	<dd class="error"><%= error_message_on :order, :format_w %></dd>
+	<dd class="error"><%= error_message_on :order, :format_h %></dd>
+
+	<dt><label for="order_circulation">Тираж:</label></dt>
+	<dd><%= f.text_field 'circulation', :size=>5 %></dd>
+	<dd class="error"><%= error_message_on :order, :circulation %></dd>
+
+	<dt><label for="order_colors">Цветность:</label></dt>
+	<dd><%= f.text_field 'colors', :size=>5 %></dd>
+	<dd class="error"><%= error_message_on :order, :colors %></dd>
+
+	<dt><label for="order_material_id">Материал:</label></dt>
+	<dd><%= f.select 'material_id', Material.get_list.collect(){|i| [i.name, i.id]} %></dd>
+	<dd class="error"><%= error_message_on :order, :material_id %></dd>
+
+	<dt><label for="order_material_density">Плотность материала:</label></dt>
+	<dd><%= f.text_field 'material_density', :size=>5 %></dd>
+	<dd class="error"><%= error_message_on :order, :material_density %></dd>
+	<dt><label for="order_">Постпечать:</label></dt>
+  <br />
+	<dd>
+		<dl>
+			<dt><%= f.check_box 'pp_cutting' %><label for="order_pp_cutting">Резка</label></dt>
+			<dd class="error"><%= error_message_on :order, :pp_cutting %></dd>
+
+			<dt><%= f.check_box 'pp_lamination' %><label for="order_pp_lamination">Ламинация</label>&nbsp;<%= f.text_field 'pp_lamination_tag', :size=>5 %></dt>
+			<dd class="error"><%= error_message_on :order, :pp_lamination %></dd>
+			<dd class="error"><%= error_message_on :order, :pp_lamination_tag %></dd>
+
+			<dt><%= f.check_box 'pp_composition' %><label for="order_pp_composition">Сборка</label></dt>
+			<dd class="error"><%= error_message_on :order, :pp_composition %></dd>
+
+			<dt><%= f.check_box 'pp_foiling' %><label for="order_pp_foiling">Фольгирование</label></dt>
+			<dd class="error"><%= error_message_on :order, :pp_foiling %></dd>
+
+			<dt><%= f.check_box 'pp_spring' %><label for="order_pp_spring">Пружина</label></dt>
+			<dd class="error"><%= error_message_on :order, :pp_spring %></dd>
+
+			<dt><%= f.check_box 'pp_twining' %><label for="order_pp_twining">Переплёт</label></dt>
+			<dd class="error"><%= error_message_on :order, :pp_twining %></dd>
+
+			<dt><%= f.check_box 'pp_falze' %><label for="order_pp_falze">Фальцовка</label>&nbsp;<%= f.text_field 'pp_falze_tag', :size=>5 %></dt>
+			<dd class="error"><%= error_message_on :order, :pp_falze %></dd>
+			<dd class="error"><%= error_message_on :order, :pp_falze_tag %></dd>
+
+			<dt><%= f.check_box 'pp_bigging' %><label for="order_pp_bigging">Биговка</label>&nbsp;<%= f.text_field 'pp_bigging_tag', :size=>5 %></dt>
+			<dd class="error"><%= error_message_on :order, :pp_bigging %></dd>
+			<dd class="error"><%= error_message_on :order, :pp_bigging_tag %></dd>
+
+			<dt><%= f.check_box 'pp_rounding' %><label for="order_pp_rounding">Скругление углов</label></dt>
+			<dd class="error"><%= error_message_on :order, :pp_rounding %></dd>
+
+		</dl>
+	</dd>
+
+  <script type="text/javascript">
+    function fl_add(src_el){
+      dst = $('order_design_tasks');
+      dst.value += ((dst.value == '')? '':', ') + src_el.innerHTML;
+    }
+    function fl_clear(){
+      $('order_design_tasks').value = '';
+    }
+  </script>
+	<dt><label for="order_design_tasks">Работы по дизайну:</label></dt>
+	<dd><%= f.text_area 'design_tasks', :rows => 3, :class => 'fast-list-dst' %></dd>
+  <dd class="fast-list-src">
+    <span onclick="fl_clear()">Нет работ.</span><br>
+    Есть работы: <span onclick="fl_add(this)">верстка</span>,
+    <span onclick="fl_add(this)">дизайн</span>,
+    <span onclick="fl_add(this)">внесение правок</span>,
+    <span onclick="fl_add(this)">корректор</span>,
+    <span onclick="fl_add(this)">набор текста</span>,
+    <span onclick="fl_add(this)">отрисовка</span>,
+    <span onclick="fl_add(this)">сканирование</span>,
+    <span onclick="fl_add(this)">ретушь</span>,
+    <span onclick="fl_add(this)">цветокррекция</span>,
+    <span onclick="fl_add(this)">фотосъемка</span>,
+    <span onclick="fl_add(this)">цветопроба</span>,
+    <span onclick="fl_add(this)">спуск полос</span>
+  </dd>
+	<dd class="error"><%= error_message_on :order, :design_tasks %></dd>
+
+	<dt><label for="order_pay_till">Дата сдачи работ дизайнером:</label></dt>
+	<dd><%= f.date_select :pay_till, :include_blank => true, :default => 5.days.from_now %></dd>
+	<dd class="error"><%= error_message_on :order, :pay_till %></dd>
+
+	<dt><label for="order_processing">Обработка:</label></dt>
+	<dd><%= f.text_area 'processing', :rows => 3 %></dd>
+	<dd class="error"><%= error_message_on :order, :processing %></dd>
+
+	<dt><label for="order_is_delivering">Доставка:</label></dt>
+	<dd><%= f.check_box 'is_delivering' %>Нужна доставка</dd>
+<br/>
+	<dt><label for='order_delivery_to'>Адрес доставки:</label></dt>
+	<dd><%= f.text_area 'delivery_to', :rows=>3 %></dd>
+	<dd class="error"><%= error_message_on :order, :is_delivering %></dd>
+
+	<dt><label for="order_is_colorprobe">Цветопроба:</label></dt>
+	<dd><%= f.check_box 'is_colorprobe' %>Да</dd>
+	<dd class="error"><%= error_message_on :order, :is_colorprobe %></dd>
+<br />
+	<dt><label for="order_comment">Комментарий:</label></dt>
+
+	<dd><%= f.text_area 'comment', :rows=>3 %></dd>
+	<dd class="error"><%= error_message_on :order, :comment %></dd>
+
+	<dt><label for="order_payment_flag">Флаг оплаты:</label></dt>
+	<dd><%= f.select 'payment_flag', Order::PAYMENT_FLAGS %></dd>
+	<dd class="error"><%= error_message_on :order, :payment_flag %></dd>
+
+	<dt><label for="order_pay_till">Оплатить до:</label></dt>
+	<dd><%= f.date_select :pay_till, :default => 5.days.from_now %></dd>
+	<dd class="error"><%= error_message_on :order, :pay_till %></dd>
+
+	<dt><label for="order_price">Цена:</label></dt>
+	<dd><%= f.text_field 'price', :size=>5 %></dd>
+	<dd class="error"><%= error_message_on :order, :price %></dd>
+
+	<dt><label for="order_bill_no">Номер счёта:</label></dt>
+	<dd><%= f.text_field 'bill_no', :size=>10 %></dd>
+	<dd class="error"><%= error_message_on :order, :bill_no %></dd>
+
+	<dt><label for="order_bill_date">Дата счёта:</label></dt>
+	<dd><%= f.text_field 'bill_date', :size=>10 %></dd>
+	<dd class="error"><%= error_message_on :order, :bill_date %></dd>
+</dl>

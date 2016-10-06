@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <title><%= @page_title %> - Администрирование - Polygraph ERP</title>
+  <% # = stylesheet_link_tag "reset-min" %>
+  <%= stylesheet_link_tag "style" %>
+  <%= javascript_include_tag :all %>
+  <%= active_scaffold_includes %>
+  <link rel="icon" href="<%= image_path('/favicon.ico') %>" type="image/x-icon">
+  <link rel="shortcut icon" href="<%= image_path('/favicon.ico') %>" type="image/x-icon">
+</head>
+<body>
+
+<div>
+	<a href="/">&larr; Вернуться на сайт</a>
+</div>
+
+<%= content_tag(:div,flash[:notice], :id => 'flash_notice', :class => 'flash notice') if flash[:notice] %>
+<%= content_tag(:div,flash[:error], :id => 'flash_error', :class => 'flash error' ) if flash[:error] %>
+<%= javascript_tag(visual_effect(:fade,:flash_notice, :delay=>1, :duration => 1)) if flash[:notice] %>
+<%= javascript_tag(visual_effect(:fade,:flash_error, :delay=>1, :duration => 1)) if flash[:error] %>
+
+
+<%= yield %>
+
+</body>
+</html>

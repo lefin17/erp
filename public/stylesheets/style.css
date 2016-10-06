@@ -1,0 +1,317 @@
+html,body {
+    font-family: verdana;
+    font-size: 11px;
+    color: #003333;
+}
+
+/*  TAGS  */
+img {border: none;}
+textarea {width: 50%; height: 60px;}
+table {border: 1px solid #DEDEDE}
+td {padding: 2px 5px}
+fieldset, form, label, legend {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: baseline;
+}
+fieldset {
+    border: 1px solid #d7d7d7;
+    padding: 5px;
+    margin: 5px;
+}
+/*  END TAGS  */
+
+
+.error {
+  background-color: #ff9c9c;
+}
+
+.notice {
+  background-color: #a5cdfd;
+}
+
+div.auto_complete {
+	width: 350px;
+	background: #fff;
+}
+
+div.auto_complete ul {
+	border: 1px solid #888;
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	list-style-type: none;
+}
+
+div.auto_complete ul li {
+	margin: 0px;
+	padding: 3px;
+}
+
+div.auto_complete ul li.selected {
+	background-color: #ffb;
+}
+
+div.auto_complete ul strong.highlight {
+	color: #800;
+	margin: 0px;
+	padding: 0px;
+}
+
+.clear {
+        clear: both;
+        float: none;
+        height: 0;
+        overflow: hidden;
+}
+
+.fast-list-src span {
+  cursor: pointer;
+  color: blue;
+  border-bottom: 1px blue dotted;
+}
+
+.f14 {font-size: 14px}
+.f18 {font-size: 18px}
+
+.bk_white {background-color: white}
+.bk_orange {background-color: orange}
+.bk_yellow {background-color: yellow}
+.bk_red {background-color: red}
+
+.b {font-weight: bold;}
+
+.blue {color: blue;}
+.red {color: red;}
+
+.u, a, a:visited {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+
+/*  GRID  */
+.grid th  {
+	background-color: #f0f0f0;
+	border-bottom: 1px solid #999999;
+	border-right: 1px solid white;
+        height: 24px;
+}
+.grid th .current {
+  padding-right: 16px;
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+.grid th .asc {
+    background-image: url(../images/arrow_up.gif);
+    background-position: right 0px;
+}
+.grid th .desc {
+  background-image: url(../images/arrow_down.gif);
+  background-position: right 0px;
+}
+.grid tr {height: 24px;}
+.grid tr.odd{background-color: #e0ffff;}
+.grid tr.even{background-color: #FFFFFF;}
+.grid td  {
+    border-left: 1px solid #d3d3d3;
+    border-right: 1px solid #d3d3d3;
+    border-bottom: 1px solid #d3d3d3;
+    padding-left:5px;
+}
+.grid {
+    border-left: 1px solid #d3d3d3;
+    border-bottom: 1px solid #999999;
+    width: 100%;
+}
+/*  END GRID  */
+
+/*  DIALOG  */
+#overlay{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index: 5000;
+    background-color:#000;
+    -moz-opacity: 0.8; /* код для движков Mozilla */
+    opacity:.80;  /*свойство из спецификации CSS3, которое поддерживается не всеми браузерами*/
+    filter: alpha(opacity=80); /* код для IE */
+}
+
+#dialog {
+    position: fixed;    
+    width: 90%;
+    height: 90%;
+    left: 5%;
+    top: 5%;
+    z-index: 5001;
+    background-color: #f0f0f0;
+    border: 1px solid #DEDEDE;
+}
+
+#dialog_header {
+    height: 32px;
+    line-height: 32px;
+    margin: 0 10px;
+}
+#dialog_body {
+    margin: 0 10px;
+    height: 93%;
+    background-color: #ffffff;
+    overflow: scroll;
+}
+#dialog_body, #dialog_header {
+/*    padding: 10px;*/
+}
+.linkclose {
+    cursor: pointer;
+    color: cadetblue;
+}
+.linkclose:hover {
+    color: blue;
+}
+.rowselect:hover {background-color: #e0ffff;}
+.rowselect {background-color: #FFFFFF;}
+.dlginfo {
+    padding: 30px;
+}
+/*  END DIALOG  */
+
+.loading {
+    background-color: #a5cdfd;
+    border: 1px solid black;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    z-index: 9999;
+    padding: 25px;
+}
+
+.errorExplanation {
+    border: 1px solid #DEDEDE;
+    margin: 5px;
+    padding: 5px;
+    background-color: #e0ffff;
+}
+.errorExplanation h2 {color: red;}
+
+.btn {
+    cursor: pointer;
+    border: 1px solid #FFFFFF;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+}
+
+.btn:hover {
+    border: 1px solid #999999;
+}
+
+.current {
+  padding-right: 12px;
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+.asc {background-image: url(/images/arrow_down.gif);}
+.desc {background-image: url(/images/arrow_up.gif);}
+
+.admin_list {
+    padding: 0;
+    margin: 0;
+
+}
+.admin_list li {
+    padding: 5px;
+    list-style-position: inside;
+    
+}
+
+.twin_ul {
+    list-style-position: inside;
+    list-style: none;
+}
+.twin_ul li {
+    float: left;
+    width: 50%;
+}
+
+.scrollbox {
+/*    padding: 5px;*/
+    border: 1px solid #DEDEDE;
+    width: 100%;
+    height: 200px;
+    overflow: scroll;
+}
+form dl > dt {float:left; height: 20px; width: 200px;}
+form dd > dl > dt {float: none;}
+form > dt > label {float: left; padding-top: 5px;}
+.clear {clear: both;}
+
+.printable_links {
+    width: 30px;
+    height: 16px;
+    background: url('../images/icons/16/printer.png') 0 0 no-repeat;
+    cursor: pointer;
+    position: relative;
+    float: left;
+    margin-right: 3px;
+}
+
+.printable_links .open_list {
+    float: right;
+    width: 12px;
+    height: 16px;
+    background: url('../images/active_scaffold/default/arrow_down.gif') 0 5px no-repeat;
+}
+
+.printable_links ul {
+    position: absolute;
+    top: 5px;
+    left: -125px;
+    list-style-type: none;
+    list-style-position: inside;
+    padding:  3px;
+    border:  solid black 1px;
+    background-color: #cccccc;
+    width: 150px;
+    z-index: 100001;
+}
+
+.printable_links li {
+    padding-top: 5px;
+}
+
+.form_row {
+    padding: 10px;
+    border-bottom: solid #dddddd 1px;
+}
+
+.form_row.select label, .form_row.text label,   .form_row.date label{
+    width: 200px;
+    float: left;
+    display: block;
+}
+
+.form_row.textarea label {
+    display: block;
+}
+
+.fieldWithErrors {
+    display: inline-block;
+    padding: 3px;
+}
+
+.fieldWithErrors {
+
+}
+
+.fieldWithErrors input, .fieldWithErrors select,.fieldWithErrors textarea {
+   border:  solid red 1px;
+}
+

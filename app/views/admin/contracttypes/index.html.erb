@@ -1,0 +1,10 @@
+<h1>Типы договоров</h1>
+<%= link_to 'Добавить новый тип договора', new_contracttype_url %>
+<ul>
+  <% @contracttypes.map do |row| %>
+    <li><%= row.aname %>
+        <%= link_to '(изменить)', edit_contracttype_url(row.id) %>
+        <%= link_to '(удалить)', contracttype_url(row.id), {:method => :delete} %>
+    </li>
+  <% end if @contracttypes %>
+</ul>

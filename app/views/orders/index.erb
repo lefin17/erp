@@ -1,0 +1,117 @@
+<% javascript_tag do -%>
+  function applyFilter(options) {
+    var form = $('orders_filter');
+    for (var name in options) {
+        form.elements["orders_filter[" + name + "]"].value = options[name];
+    }
+    form.submit();
+    return false;
+  }
+
+  function togglePeriodVisibility(period) {
+    if (period.options[period.selectedIndex].value == 'custom') {
+        $('custom_period_selector').style.display = 'inline';
+    } else {
+        $('custom_period_selector').style.display = 'none';
+    }
+  }
+<% end -%>
+<meta http-equiv="refresh" content="900" />
+<h1>Список заказов</h1>
+
+<p>
+	<%= link_to 'Добавить заказ', new_order_url %>
+</p>
+
+<%= render :partial => 'filters' %>
+
+<table class="grid">
+	<thead>
+		<th>
+          <%= link_to_order("№", 'orders.id', @filter) %>
+		</th>
+		
+		<th>
+          <%= link_to_order("Клиент", 'orders.user_id', @filter) %>
+      	</th>
+		
+		<th>
+          <%= link_to_order("Вид продукции", 'product_types.name', @filter) %>
+		</th>
+		<th>
+		  <%= link_to_order("Статус", 'orders.status', @filter) %>
+        </th>
+<!-- 		 <th>
+          Этап
+        </th> -->
+		 <th>
+		<%= link_to_order("Сумма", 'orders.price', @filter) %>
+		</th>
+		<th>
+		  Счет
+		</th>
+		<th>
+	        Дата оплаты
+        </th>
+		<th>
+		  <%= link_to_order("Оплата", 'orders.payment_flag', @filter) %>
+		</th>
+		<th>
+          <%= link_to_order("Дата сдачи", 'orders.deadline', @filter) %>
+		</th>
+		<th>Действия</th>
+	</thead>
+	<tbody>
+		<% if @orders.blank? %>
+		<tr><td colspan="0" align="center">Список заказов пуст.</td></tr>
+		<% else %>
+			<% for order in @orders %>
+			<tr id="order-<%= order.id %>">
+				<td><%= link_to order.code_id, order_url(order.id) %></td>
+				<td <%=  order.user.style_color -%> ><%= link_to order.user.name, client_view_url(order.user.id) %> - <%= order.manager.id %></td>
+				<td><%= order.product_type.name %></td>
+				<td><%= get_item_name_by_id(Order::STATUSES, order.status) %></td>
+				<!-- <td><% stage = order.get_current_stage %>
+					<%= stage.user.login + ' (<em>' + get_item_name_by_id(OrderStep::STATUSES, stage.status) + '</em> ' + relative_date(stage.updated_at) + ')' + '' %>
+				</td> -->
+        <td>
+          <%  unless order.price.blank? %>
+            <%= "%.2f" % order.price %>
+          <% end %>
+		  </td>
+		  <td>
+          <%- if order.has_bill? -%>
+            Счет №<%= order.bill_no %>
+            <% unless order.bill_date_raw.blank? %>
+              от <%= order.bill_date_raw.strftime("%d.%m.%Y") %>
+            <% end %>
+          <%- end -%>
+        </td>
+				<td><%- if order.has_bill? -%>
+						<% unless order.bill_date_raw.blank? %>
+						<%= order.bill_date_raw.strftime("%d.%m.%Y") %>
+						<% end %>
+					<%- end -%>
+				</td>        
+        <td><%= get_item_name_by_id(Order::PAYMENT_FLAGS, order.payment_flag) %></td>
+        <td><%= relative_date(order.deadline) %></td>
+				<td>
+                   <%= printable_link(order) %>
+					&nbsp;
+					
+		 
+		<% if @g_user.user_type == User::USER_TYPE_ADMIN%>
+		<%= link_to_remote("X", :url => { :controller => 'orders', :action => 'destroy', :id => order.id }, :method => :delete , :confirm => "Вы уверены? Точно?")	%>
+		<% end %>
+					
+				</td>
+			</tr>
+			<% end %>
+		<% end %>
+
+
+	</tbody>
+</table>
+
+<div style="display:none;"> will_paginate @clients</div>
+

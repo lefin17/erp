@@ -1,0 +1,29 @@
+.form_row.input.date
+  = f.label :pay_till, "Оплатить до:"
+  = f.date_select :pay_till, :default => 5.days.from_now
+  .error
+    = error_message_on :order, :pay_till
+
+.form_row.input.text
+  = f.label :price, "Цена:"
+  = f.text_field :price, :size=>5
+  .error
+    = error_message_on :order, :price
+
+.form_row.input.text
+  = f.label :payment_received, "Внесено оплаты:"
+  = f.text_field :payment_received, :size=>5
+  .error
+    = error_message_on :order, :payment_received
+
+.form_row.input.text
+  = f.label :bill_no, "Номер счёта:"
+  = f.text_field :bill_no, :size=>10
+  .error
+    = error_message_on :order, :bill_no
+
+.form_row.input.date
+  = f.label :bill_date, "Дата оплаты счёта:"
+  = f.text_field :bill_date, :size=>10
+  .error
+    = error_message_on :order, :bill_date

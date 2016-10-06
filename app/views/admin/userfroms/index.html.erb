@@ -1,0 +1,10 @@
+<h1>Откуда клиент</h1>
+<%= link_to 'Добавить еще... откуда клиент', new_userfrom_url %>
+<ul>
+  <% @userfroms.map do |row| %>
+    <li><%= row.aname %> 
+        <%= link_to '(изменить)', edit_userfrom_url(row.id) %>
+        <%= link_to '(удалить)', userfrom_url(row.id), {:method => :delete} %>
+    </li>
+  <% end if @userfroms  %>
+</ul>

@@ -1,0 +1,14 @@
+<h1>Способы печати</h1>
+<% if @pms.blank? %>
+	Нет способов печати.
+<% else %>
+	<ul>
+		<% for pm in @pms %>
+			<li><%= link_to pm.name, edit_admin_print_method_url(pm) %>&nbsp;(<%= link_to 'Удалить', [:admin, pm], :confirm => 'Вы действительно хотите удалить этот способ печати?', :method => 'delete' %>)</li>
+		<% end %>
+	</ul>
+<% end %>
+
+<p>
+	<%= link_to 'Добавить способ печати', new_admin_print_method_url %>
+</p>

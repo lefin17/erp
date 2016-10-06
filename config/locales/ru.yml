@@ -1,0 +1,28 @@
+ru:
+  active_scaffold:
+    print_form:
+      labe  l: Печатная форма
+      create:
+        link:
+          labe: test
+
+      create_model: Новая печатная форму
+
+  activerecord:
+    models:
+      order:
+        zero: Нет заказов
+        one: Заказ
+        few: Заказы
+        other: %{count} заказов
+      print_form:
+        zero: Нет печатных форм
+        one: Печатная форма
+        few: Печатные формы
+        other: %{count} печатныч форм
+    attributes:
+      print_form:
+        can_be_accessed_by: Форма доступна для ролей
+        name: Название
+        template_name: Имя файла-шаблона
+        printable_type: Для объекта

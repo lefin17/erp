@@ -1,0 +1,14 @@
+<h1>Новый клиент</h1>
+
+<% form_for :client do |f| %>
+	<fieldset>
+		<dl>
+			<dt><label for="client_login">Логин</label></dt>
+			<dd><%= f.text_field :login %></dd>
+			<dd class="error"><%= error_message_on :client, :login %></dd>
+		</dl>
+		<%= render 'clients/fields', :f => f %>
+
+       <%= submit_tag 'Создать' %>
+         </fieldset>
+<% end %>

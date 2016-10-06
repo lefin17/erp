@@ -1,0 +1,31 @@
+<% javascript_tag do -%>
+  function togglePeriodVisibility(period) {
+    if (period.options[period.selectedIndex].value == 'custom') {
+      $('custom_period_selector').style.display = 'inline';
+    } else {
+      $('custom_period_selector').style.display = 'none';
+    }
+  }
+<% end -%>
+<fieldset><legend>Фильтры</legend>
+  <% form_for filter, :url => tasks_url, :html => {:method => :get} do |f| -%>
+    <% if @g_user.admin? %>
+      Исполнитель: <%= f.select :user_id, employee_for_select('Все'), :include_blank => false -%>
+    <% end %>
+    Контакты: <%= f.select :period, period_for_select, {:include_blank => 'За все время'}, :onchange => 'togglePeriodVisibility(this)'-%>
+    <span id="custom_period_selector" style="display: <%= filter.custom_period? ? 'inline' : 'none' %>">
+      с
+      <%= f.calendar_date_select :from, :size => 8  %>
+      по
+      <%= f.calendar_date_select :to, :size => 8 %>
+    </span>
+    Тип <%= f.select :type, type_for_select, :include_blank => 'Все'-%>
+    <%= submit_tag "Применить" %>
+    <%= button_to_function "Сбросить", :onclick => "location.href = location.pathname;"%>
+    <br />Назначенные контакты:
+    [<%= link_to "вчерашние - #{@count_yesterday}", tasks_url(:period => 'yesterday') -%>],
+    [<%= link_to "сегодня - #{@count_today}", tasks_url(:period => 'today') -%>],
+    [<%= link_to "завтра - #{@count_tomorrow}", tasks_url(:period => 'tomorrow') -%>],
+    [<%= link_to "месяц - #{@count_month}", tasks_url(:period => 'month') -%>]
+  <% end -%>
+</fieldset>

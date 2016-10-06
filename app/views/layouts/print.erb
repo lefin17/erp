@@ -1,0 +1,13 @@
+<html>
+  <head>
+    <style media="print" type="text/css">
+      .print_controls { display: none; }
+    </style>
+  </head>
+  <body onload="window.print();">
+    <div class="print_controls">
+      <button onclick="window.print();">Печать</button>
+    </div>
+    <%= yield %>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<h1>New dump</h1>
+
+<% form_for(@dump) do |f| %>
+  <%= f.error_messages %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>
+          <%= check_box_tag :select_all, '', true, :onchange => 'var _this = this; $$(\'td input[type="checkbox"]\').each(function(el){ el.checked =  _this.checked;});' %>
+        </th>
+        <th>Имя таблицы</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tables.each do |table| %>
+      <tr>
+        <td>
+          <%= check_box_tag 'dump[tables][]', table, true %>
+        </td>
+        <td>
+          <%= table %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', dumps_path %>

@@ -1,0 +1,61 @@
+- if current_user.admin?
+  .form_row.input.date
+    = f.label :created_at, "Дата оформления заказа:"
+    = f.datetime_select :created_at, :default => Time.now
+    .error
+      = error_message_on :order, :created_at
+
+.form_row.input.date
+  = f.label :deadline, "Дата сдачи:"
+  = f.datetime_select :deadline, :default => 2.days.from_now
+  .error
+    = error_message_on :order, :deadline
+
+= render :partial => 'products_fields', :locals => {:f => f}
+
+.form_row.input.date
+  = f.label :design_deadline, "Дата сдачи работ дизайнером:"
+  = f.date_select :design_deadline, :default => 5.days.from_now
+  .error
+    = error_message_on :order, :design_deadline
+
+.form_row.input.textarea
+  = f.label :processing, "Обработка:"
+  = f.text_area 'processing', :rows => 3
+  .error
+    = error_message_on :order, :processing
+.form_row.input.select
+  = f.label :location, "Место отгрузки:"
+  = f.select :location, Order.locations, :onchange => 'setAddressVisibility(this);'
+#local_address.form_row.input.textarea
+  = f.label :delivery_to, "Адрес доставки:"
+  = f.text_area :delivery_to, :rows=>3
+  .error
+    = error_message_on :order, :delivery_to
+
+.form_row.input.textarea
+  = f.label :comment, "Комментарий:"
+  = f.text_area :comment, :rows=>3, :class => 'fast-list-dst'
+
+%a{:href => "#", :onclick => "slide('orderinfo'); return false;"} Товары
+%fieldset#orderinfo{:style => "display: none"}
+  %legend Детали заказа
+  %ul.twin_ul
+    %li	  
+  = fast_links :order_comment, Order.available_antimarker_products
+  %br
+  %br
+  = fast_links :order_comment, Order.available_antimarker_2_products
+  %br
+  %br
+  = fast_links :order_comment, Order.available_antimarker_3_products
+  %br
+  %br
+  = fast_links :order_comment, Order.available_doorfix_products
+  %br
+  %br
+  = fast_links :order_comment, Order.available_B000_products
+  .error
+    = error_message_on :order, :comment
+	
+= render :partial => 'payment_fields', :locals => {:f => f}

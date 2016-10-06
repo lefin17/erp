@@ -1,0 +1,8 @@
+<h1>Клиент &laquo;<%= @client.login %>&raquo;</h1>
+
+<% form_for :client do |f| %>
+<fieldset>
+  <%= render 'clients/fields', :f => f %>
+  <%= submit_tag 'Сохранить' %>
+</fieldset>
+<% end %>

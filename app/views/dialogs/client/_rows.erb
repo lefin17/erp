@@ -1,0 +1,10 @@
+<% @clients.map do |row| %>
+  <tr class="rowselect" onclick="<%="dialog.select('client','#{row.name || row.login}',#{row.id})" -%>">
+  <td><%= h row.name %></td>
+  <td><%= h row.jur_name %></td>
+  <td><%= h row.email -%></td>
+  <td><%= h row.phone %></td>
+  <td><%= h row.phone_mobile %></td>
+  <td><%= h row.comment -%></td>
+</tr>
+<% end if @clients.present? %>

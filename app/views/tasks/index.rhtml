@@ -1,0 +1,7 @@
+<h1>Контакты с клиентом</h1>
+<p><%= link_to 'Создать новую задачу', new_task_url %> | <%= link_to 'История', history_tasks_url %></p>
+
+<fieldset><legend>Текущие задачи</legend>
+  <%= render :partial => 'filters', :locals => {:filter => @filter} %>
+  <%= render :partial => 'currenttasks' -%>
+</fieldset>

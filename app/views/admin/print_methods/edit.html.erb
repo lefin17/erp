@@ -1,0 +1,6 @@
+<h1>Изменить способ печати</h1>
+
+<% form_for [:admin, @pm] do |f| %>
+  <%= render :partial => "fields", :locals => {:f => f} %>
+  <%= submit_tag 'Сохранить' %>
+<% end %>

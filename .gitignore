@@ -1,0 +1,6 @@
+config/database.yml
+*.tar.gz
+tmp/
+dump/
+log/
+pids/

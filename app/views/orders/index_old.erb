@@ -1,0 +1,84 @@
+
+<meta http-equiv="refresh" content="900" />
+<h1>Список заказов</h1>
+
+<p>
+	<%= link_to 'Добавить заказ', new_order_url %>
+</p>
+
+<p>
+	Показать заказы:&nbsp;&nbsp;<strong><a href="?manager=<%=@g_user.id.to_i%>">Мои заказы</a></strong>|&nbsp;
+
+<%# debug(@g_user)%>
+
+<%= statuses_links(@sod) %>
+
+<strong><a href="?s=<%= ('&sod=' + @sod.to_s) unless @sod.blank? %>">Все</a></strong>
+</p>
+
+<%# @recipients.debug %>
+
+<table class="grid">
+	<thead>
+		<th>
+          <a href="?<%= (@order.nil? ? 'sod=' : ('&sod=')) + (@sod.blank? ? '1' : (@sod == 1 ? '-1' : '1')) %>">№<%= (@sod.blank? ? '' : (@sod == 1 ? '&nbsp;&darr;' : '&nbsp;&uarr;')) %></a></th>
+		</th>
+		
+		<th>
+		<a href="?<%= (@order.nil? ? 'sod=' : ('&sod=')) + (@sod.blank? ? '1' : (@sod == 1 ? '-1' : '1')) %>">Клиент:<%= (@sod.blank? ? '' : (@sod == 1 ? '&nbsp;&darr;' : '&nbsp;&uarr;')) %></a>
+		<% unless @recipients.blank? %>
+		<% form_for :client do |f| %>
+				<%= hidden_field_tag 'form', 'client' %>
+				<dd>
+				<%= f.select :cl, @recipients.map {|i| [i.name, i.id]}, {:include_blank => true} %>
+				<%= submit_tag 'Выбрать' %>
+				</dd>
+			<% end %>
+			<%# debug params[:client] %>
+		<% end %>	
+		
+		</th>
+		
+		<th>
+  		  <a href="?<%= (@order.nil? ? 'sod=' : ('&sod=')) + (@sod.blank? ? '1' : (@sod == 1 ? '-1' : '1')) %>">Вид продукции<%= (@sod.blank? ? '' : (@sod == 1 ? '&nbsp;&darr;' : '&nbsp;&uarr;')) %></a></th>
+		</th>
+		<th><a href="?<%= (@s.blank? ? 'sod=' : ('s=' + @s.to_s + '&sod=')) + (@sod.blank? ? '1' : (@sod == 1 ? '-1' : '1')) %>">Статус<%= (@sod.blank? ? '' : (@sod == 1 ? '&nbsp;&darr;' : '&nbsp;&uarr;')) %></a></th>
+		<th><a href="?<%= (@s.blank? ? 'sod=' : ('s=' + @s.to_s + '&sod=')) + (@sod.blank? ? '1' : (@sod == 1 ? '-1' : '1')) %>">Этап<%= (@sod.blank? ? '' : (@sod == 1 ? '&nbsp;&darr;' : '&nbsp;&uarr;')) %></a></th>
+		<th><a href="?<%= (@s.blank? ? 'sod=' : ('s=' + @s.to_s + '&sod=')) + (@sod.blank? ? '1' : (@sod == 1 ? '-1' : '1')) %>">Оплата<%= (@sod.blank? ? '' : (@sod == 1 ? '&nbsp;&darr;' : '&nbsp;&uarr;')) %></a></th>
+		<th>
+		<a href="?<%= (@order.nil? ? 'sod=' : ('&sod=')) + (@sod.blank? ? '1' : (@sod == 1 ? '-1' : '1')) %>">Дата сдачи<%= (@sod.blank? ? '' : (@sod == 1 ? '&nbsp;&darr;' : '&nbsp;&uarr;')) %></a></th>
+		</th>
+		<th>Действия</th>
+	</thead>
+	<tbody>
+		<% if @orders.blank? %>
+		<tr><td colspan="0" align="center">Список заказов пуст.</td></tr>
+		<% else %>
+			<% for order in @orders %>
+			<tr id="order-<%= order.id %>">
+				<td><%= link_to order.code_id, order_url(order.id) %></td>
+				<td <%=  order.user.style_color -%> ><%= link_to order.user.name, client_view_url(order.user.id) %></td>
+				<td><%= order.product_type.name %></td>
+				<td><%= get_item_name_by_id(Order::STATUSES, order.status) %></td>
+				<td><% stage = order.get_current_stage %>
+					<%= stage.user.login + ' (<em>' + get_item_name_by_id(OrderStep::STATUSES, stage.status) + '</em> ' + relative_date(stage.updated_at) + ')' + '' %>
+				</td>
+        <td><%= get_item_name_by_id(Order::PAYMENT_FLAGS, order.payment_flag) %></td>
+        <td><%= relative_date(order.deadline) %></td>
+				<td>
+					<%= link_to("Печать", { :controller => 'orders', :action => 'print', :id => order.id }, :popup => true) %>
+					&nbsp;
+					
+		 
+		<% if @g_user.user_type == User::USER_TYPE_ADMIN%>
+		<%= link_to_remote("Удалить", :url => { :controller => 'orders', :action => 'destroy', :id => order.id }, :confirm => "Вы уверены? Точно?")	%>
+		<% end %>
+					
+				</td>
+			</tr>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>
+
+

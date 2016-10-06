@@ -1,0 +1,28 @@
+%p
+  Показать заказы:&nbsp;&nbsp;
+  - form_for @filter, :url => orders_url, :html => {:method => :get, :id => 'orders_filter', :class => 'filter_form'} do |f|
+    %strong
+      = link_to_function "Мои заказы", "applyFilter({manager_id: #{@g_user.id.to_i}});"
+    = statuses_links(@filter)
+    %br
+    = f.label :client_id, "Клиент:"
+    = f.select :client_id, @recipients.map {|i| [i.name, i.id]}, {:include_blank => true}
+      
+    = f.label :period, "За период"
+    = f.select :period, period_for_select, {:include_blank => 'За все время'}, :onchange => 'togglePeriodVisibility(this)'
+    %span#custom_period_selector{:style => "display: #{@filter.custom_period? ? 'inline' : 'none'}"}
+      с
+      = f.calendar_date_select :from, :size => 8
+      по
+      = f.calendar_date_select :to, :size => 8
+    - if @g_user.admin?
+      = f.label :manager_id, 'Менеджер'
+      = f.select :manager_id, User.managers.map { |m| [m.name, m.id]}, {:include_blank => 'Все'}
+    = f.hidden_field :soc
+    = f.hidden_field :sod
+    = f.hidden_field :status
+    = f.submit "Применить"
+    = button_to_function "Сбросить", :onclick => "location.href = location.pathname;"
+
+
+

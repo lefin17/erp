@@ -1,0 +1,10 @@
+--- 
+group: 1000
+address: 127.0.0.1
+#log_file: /var/www/perp/log/mongrel.log
+port: "3000"
+cwd: /var/www/perp
+environment: development
+user: 1000
+pid_file: /var/www/perp/tmp/armbti.pid
+servers: 2

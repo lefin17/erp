@@ -1,0 +1,2 @@
+page.replace_html 'dialog_body', :partial => @dialogtemplate
+page.call 'dialog.show'

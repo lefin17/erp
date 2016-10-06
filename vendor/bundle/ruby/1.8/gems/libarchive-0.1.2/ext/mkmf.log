@@ -1,0 +1,50 @@
+have_header: checking for config.h... -------------------- yes
+
+"gcc -E -I/opt/local/include -I. -I/usr/local/lib/ruby/1.8/x86_64-linux -I.    -g -O2     conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include <config.h>
+/* end */
+
+--------------------
+
+have_header: checking for archive.h... -------------------- yes
+
+"gcc -E -I/opt/local/include -I. -I/usr/local/lib/ruby/1.8/x86_64-linux -I.    -g -O2     conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include <archive.h>
+/* end */
+
+--------------------
+
+have_header: checking for archive_entry.h... -------------------- yes
+
+"gcc -E -I/opt/local/include -I. -I/usr/local/lib/ruby/1.8/x86_64-linux -I.    -g -O2     conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include <archive_entry.h>
+/* end */
+
+--------------------
+
+have_header: checking for zlib.h... -------------------- yes
+
+"gcc -E -I/opt/local/include -I. -I/usr/local/lib/ruby/1.8/x86_64-linux -I.    -g -O2     conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include <zlib.h>
+/* end */
+
+--------------------
+
+have_header: checking for bzlib.h... -------------------- yes
+
+"gcc -E -I/opt/local/include -I. -I/usr/local/lib/ruby/1.8/x86_64-linux -I.    -g -O2     conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include <bzlib.h>
+/* end */
+
+--------------------
+

@@ -1,0 +1,7 @@
+<dt>Название</dt>
+<dd><%= form.text_field :aname %></dd>
+
+<dt>Сделать значением по умолчанию</dt>
+<dd><%= form.check_box :isdefault %></dd>
+
+<%= form.submit form.object.new_record? ? 'Создать' : 'Сохранить изменения' %>

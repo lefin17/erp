@@ -1,0 +1,3 @@
+page["person_name"].value = "aaaaaaa"
+page.call "dialog.hide"
+

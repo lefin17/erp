@@ -1,0 +1,21 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<body>
+Вам поступил 
+<%= link_to  "Заказ № #{@order.id.to_s} от  #{@order_date}" , :id => @order.id, :host =>'62.5.204.211', :controller => 'orders', :action =>'view' %>
+<br>
+от Менеджера 
+для действия: 
+<%= get_item_name_by_id(Order::STATUSES, @order.status) %>
+<%# @order.status.to_s %>
+<br>
+
+<br>
+С уважением,
+Полиграфическая компания полного цикла АртПолиграф <br>
+Уточнить информацию по  заказу  можно по т. +7 495 6494876 
+</body>
+</html>

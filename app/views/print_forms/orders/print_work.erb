@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Наряд заказа № <%= @order.id %> </title>
+<style type="text/css">
+<!--
+.podpis1 {
+	font-size: 12px;
+	text-align: left;
+}
+.rightborder {
+	border-right-color: #000;
+	border-right:dotted;
+}
+.allborder {
+	border: thin solid #000;
+}
+
+.topborder {
+	border-top: thin solid #000;
+}
+
+.bottomborder {
+	border-bottom: thin solid #000;
+}
+.txt_dogovor {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 10px;
+}
+.txt_bold {
+	font-weight: bold;
+}
+.txt_dostavka strong {
+	font-size: 24px;
+}
+.txt_dostavka {
+	font-size: xx-large;
+	font-family: Verdana, Geneva, sans-serif;
+}
+.txt_dostavka .txt_dostavka strong {
+	font-size: 24px;
+}
+
+-->
+</style>
+</head>
+
+<body>
+<table width="1006" border="1" cellspacing="0" cellpadding="20">
+  <tr>
+    <th width="59" scope="row">&nbsp;</th>
+    <th width="460" align="left" scope="row"><table border="0" align="left" cellpadding="0" cellspacing="0">
+      <tr>
+        <td colspan="2"><p>НАРЯД на ПРОИЗВОДСТВО № <%= @order.id %> от <strong><span class="podpis1"><%=@order.created_at.strftime('%d.%m.%Y ')  %></span></strong><br />
+        </p></td>
+      </tr>
+      <tr>
+        <td width="111" height="27" ><strong>Дата СДАЧИ:</strong></td>
+        <td width="372"><h2><strong><strong><%= @order.deadline.to_date %></strong></strong></h2></td>
+      </tr>
+      <tr>
+        <td height="24"><strong>ЗАКАЗЧИК</strong></td>
+        <td class="bottomborder"><strong><%= @order.user.name %></strong></td>
+      </tr>
+      <tr>
+        <td height="24"><strong>МЕНЕДЖЕР: </strong></td>
+        <td class="bottomborder"><strong><%= @order.order_steps.first.user.name %></strong></td>
+      </tr>
+      <tr>
+        <td height="27" >Оплата</td>
+        <td class="bottomborder" ><strong><%= get_item_name_by_id(Order::PAYMENT_FLAGS, @order.payment_flag) %></strong></td>
+      </tr>
+      <tr>
+        <td height="28" >Тираж</td>
+        <td class="bottomborder" ><strong><%= @order.circulation %></strong></td>
+      </tr>
+      <tr>
+        <td height="26" >Формат</td>
+        <td class="bottomborder" ><strong><%= @order.format_w %>мм x <%= @order.format_h %>мм</strong></td>
+      </tr>
+      <tr>
+        <td height="31" >Цветность</td>
+        <td class="bottomborder" ><strong><%= @order.colors %></strong></td>
+      </tr>
+      <tr>
+        <td height="27" >Материал</td>
+        <td class="bottomborder" ><strong><%= @order.material.name %></strong></td>
+      </tr>
+      <tr>
+        <td height="26" >Плотность</td>
+        <td class="bottomborder" ><strong><%= @order.material_density %></strong></td>
+      </tr>
+      <tr>
+        <td height="32" >Цветопроба:</td>
+        <td class="bottomborder" ><strong><%= @order.is_colorprobe%></strong></td>
+      </tr>
+      <tr>
+        <td height="41" colspan="2" valign="top" class="bottomborder" >Подробности: <br />
+          <%= @order.design_tasks %> <br />
+          <%= @order.processing %><br />
+          <span class="allborder"><%= @order.comment %></span></td>
+      </tr>
+      <tr>
+        <td colspan="2" class="bottomborder">Обработка:
+          <% if @order.pp_cutting == true then %>
+          Резка
+          <% end %>
+          &nbsp;
+          <% if @order.pp_lamination == true then %>
+          Ламинация
+          <% end %>
+          &nbsp;
+          <% if @order.pp_composition == true then %>
+          Сборка
+          <% end %>
+          &nbsp;
+          <% if @order.pp_foiling == true then %>
+          Фольгирование
+          <% end %>
+          &nbsp;
+          <% if @order.pp_spring == true then %>
+          Пружина
+          <% end %>
+          &nbsp;
+          <% if @order.pp_twining == true then %>
+          Переплёт
+          <% end %>
+          &nbsp; <%= @order.pp_falze_tag %> &nbsp; <%= @order.pp_bigging_tag %> &nbsp;
+          <% if @order.pp_rounding == true then %>
+          Скругление углов
+          <% end %></td>
+      </tr>
+      <tr>
+        <td height="28" colspan="2" valign="top" class="bottomborder" ><strong>Адрес доставки: <%= @order.delivery_to %></strong></td>
+      </tr>
+      <tr>
+        <th height="32" scope="row">Кто печатал (ФИ):</th>
+        <td class="bottomborder">&nbsp;</td>
+      </tr>
+      <tr>
+        <th scope="row">Площадь печати<br /></th>
+        <td class="bottomborder"><p>&nbsp;</p>
+          <p>&nbsp;</p></td>
+      </tr>
+      <tr>
+        <th scope="row">Количество Брака:</th>
+        <td class="bottomborder"><p>&nbsp;</p>
+          <p>&nbsp;</p></td>
+      </tr>
+    </table></th>
+    <td width="359" align="center"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td colspan="2" align="center"><p>НАРЯД<strong> в ОФИС №</strong> <%= @order.id %> <strong>от <span class="podpis1"><%=@order.created_at.strftime('%d.%m.%Y ')  %></span><span class="b"><br />
+        </span></strong></p></td>
+      </tr>
+      <tr>
+        <td width="32%" height="27" ><strong>ДАТА СДАЧИ</strong>: </td>
+        <td width="68%" class="bottomborder" ><h2><strong><%= @order.deadline.to_date %></strong></h2></td>
+      </tr>
+      <tr>
+        <td height="24"><strong>МЕНЕДЖЕР</strong></td>
+        <td class="bottomborder"><p><strong><%= @order.order_steps.first.user.name %></strong></p></td>
+      </tr>
+      <tr>
+        <td height="27" ><strong>ЗАКАЗЧИК</strong></td>
+        <td class="bottomborder" ><strong><span class="b"><%= @order.user.name %>, <span class="topborder"><%= @order.user.contact_fio%></span>, <%= @order.user.phone %></span></strong></td>
+      </tr>
+      <tr>
+        <td height="27" >Оплата</td>
+        <td class="bottomborder" ><%= get_item_name_by_id(Order::PAYMENT_FLAGS, @order.payment_flag) %></td>
+      </tr>
+      <tr>
+        <td height="27" > Оплатить </td>
+        <td class="bottomborder" >до <%= @order.pay_till.to_date %></td>
+      </tr>
+      <tr>
+        <td height="28" >Тираж</td>
+        <td class="bottomborder" ><%= @order.circulation %></td>
+      </tr>
+      <tr>
+        <td height="26" >Формат</td>
+        <td class="bottomborder" ><%= @order.format_w %>мм x <%= @order.format_h %>мм</td>
+      </tr>
+      <tr>
+        <td height="31" >Цветность</td>
+        <td class="bottomborder" ><%= @order.colors %></td>
+      </tr>
+      <tr>
+        <td height="27" >Материал</td>
+        <td class="bottomborder" ><%= @order.material.name %></td>
+      </tr>
+      <tr>
+        <td height="26" >Плотность</td>
+        <td class="bottomborder" ><%= @order.material_density %></td>
+      </tr>
+      <tr>
+        <td height="32" >Цветопроба:</td>
+        <td class="bottomborder" ><span class="allborder"><%= @order.is_colorprobe%></span></td>
+      </tr>
+      <tr>
+        <td height="79" colspan="2" valign="top" class="allborder" >Подробности<br />
+          - <%= @order.design_tasks %> <br />
+          - <%= @order.processing %><br />
+          - <%= @order.comment %></td>
+      </tr>
+      <tr>
+        <td colspan="2">Постпечатная обработка:</td>
+      </tr>
+      <tr>
+        <td height="71" colspan="2" valign="top" class="bottomborder"><% if @order.pp_cutting == true then %>
+          Резка
+          <% end %>
+          &nbsp;
+          <% if @order.pp_lamination == true then %>
+          Ламинация
+          <% end %>
+          &nbsp;
+          <% if @order.pp_composition == true then %>
+          Сборка
+          <% end %>
+          &nbsp;
+          <% if @order.pp_foiling == true then %>
+          Фольгирование
+          <% end %>
+          &nbsp;
+          <% if @order.pp_spring == true then %>
+          Пружина
+          <% end %>
+          &nbsp;
+          <% if @order.pp_twining == true then %>
+          Переплёт
+          <% end %>
+          &nbsp; <%= @order.pp_falze_tag %> &nbsp; <%= @order.pp_bigging_tag %> &nbsp;
+          <% if @order.pp_rounding == true then %>
+          Скругление углов
+          <% end %></td>
+      </tr>
+      <tr>
+        <td colspan="2" valign="top" >Адрес доставки: <%= @order.delivery_to %></td>
+      </tr>
+      <tr>
+        <th scope="row">&nbsp;</th>
+        <td>&nbsp;</td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+<p>Адрес доставки:</p>
+<p>&nbsp;</p>
+<table width="1004" border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="center"><table cellspacing="0" cellpadding="0">
+      <col width="169" />
+      <col width="157" />
+      <col width="167" />
+      <col width="130" />
+      <col width="62" />
+      <col width="94" />
+      <col width="38" />
+      <col width="151" />
+      <col width="256" />
+      <tr>
+        <td colspan="9" align="center" valign="bottom"><h1> <%= @order.delivery_to %> </h1></td>
+      </tr>
+      <tr>
+        <td colspan="9"></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>

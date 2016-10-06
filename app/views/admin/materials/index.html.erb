@@ -1,0 +1,34 @@
+<h1>Материалы</h1>
+<%= javascript_include_tag :defaults %>
+<% if @materials.blank? %>
+	Список материалов пуст.
+<% else %>
+	<ul>
+		<% for m in @materials %>
+		 
+	<li id="material-<%= m.id %>" &nbsp; 
+	<%= link_to m.name, edit_admin_material_url(m) %>&nbsp;
+	
+	<% if m.enabled != false %> 
+	
+			(<%= link_to_remote 'Деактивировать',
+			:url=> {:controller=>'materials',:action=>'deactivate', 
+			:id => m.id },
+			:confirm => 'Вы действительно хотите деактивировать этот материал?' %>)</li>
+	
+	<% else %>	
+	
+	(<%= link_to_remote 'Активировать',
+			:url=> {:controller=>'materials',:action=>'activate', 
+			:id => m.id },
+			:confirm => 'Вы действительно хотите Активировать этот материал?' %>)</li>				
+		<% end %>
+	</ul>
+	<% end %>
+<% end %>
+
+<p>
+	<%= link_to 'Добавить материал', new_admin_material_url %>
+</p>
+
+

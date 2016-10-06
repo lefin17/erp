@@ -1,0 +1,6 @@
+<h1>Изменить контрагнта</h1>
+
+<% form_for [:admin, @ca] do |f| %>
+  <%= render :partial => "fields", :locals => {:f => f} %>
+  <%= submit_tag 'Сохранить' %>
+<% end %>

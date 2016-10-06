@@ -1,0 +1,413 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Наряд заказа № &lt;%= @order.id %&gt;</title><style type="text/css">
+<!--
+.podpis1 {
+	font-size: 12px;
+	text-align: left;
+}
+.rightborder {
+	border-right-color: #000;
+	border-right:dotted;
+}
+.allborder {
+	border: thin solid #000;
+}
+
+.topborder {
+	border-top: thin solid #000;
+}
+
+.bottomborder {
+	border-bottom: thin solid #000;
+}
+.txt_dogovor {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 10px;
+}
+.txt_bold {
+	font-weight: bold;
+}
+.txt_dostavka strong {
+	font-size: 24px;
+}
+.txt_dostavka {
+	font-size: xx-large;
+	font-family: Verdana, Geneva, sans-serif;
+}
+.txt_dostavka .txt_dostavka strong {
+	font-size: 24px;
+}
+
+-->
+</style></head>
+<body>☺
+
+
+
+
+
+
+<table border="0" width="1005">
+  <tbody><tr>
+  <td colspan="2" rowspan="2"><strong>ЗАКАЗ № &lt;%= @order.id %&gt; <br />
+    от <span class="podpis1">&lt;%=@order.created_at.strftime('%d.%m.%Y ')  %&gt;</span></strong><br /></td>
+  <td colspan="2" class="allborder">&lt;%= @order.price %&gt; р</td>
+  <td class="allborder" width="175">Оплата: &lt;%= get_item_name_by_id(Order::PAYMENT_FLAGS, @order.payment_flag) %&gt;</td>
+  <td class="rightborder">&nbsp;</td>
+  <td>&nbsp;</td>
+  <td colspan="2" rowspan="2" align="center">Квитанция  № &lt;%= @order.id %&gt; <strong>от<span class="podpis1"> &lt;%=@order.created_at.strftime('%d.%m.%Y ')  %&gt; </span></strong></td>
+  </tr>
+<tr>
+    <td colspan="2">Макет</td>
+    <td class="allborder">&nbsp;</td>
+    <td class="rightborder">&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  
+<tr>
+    <td>Дата сдачи :</td>
+    <td width="158">&lt;%= @order.deadline.to_date %&gt;</td>
+    <td colspan="2">Утверждаю</td>
+    <td class="allborder">&nbsp;</td>
+    <td class="rightborder">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td width="127">Менеджер</td>
+    <td width="268"><strong>&lt;%= @order.order_steps.first.user.name %&gt;</strong></td>
+  </tr>
+  
+  <tr>
+    <td>Продукция:</td>
+    <td colspan="2">&lt;%= @order.product_type.name %&gt;</td>
+    <td width="48">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td class="rightborder">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>Дата сдачи</td>
+    <td>&lt;%= @order.deadline.to_date %&gt;</td>
+  </tr>
+  <tr>
+    <td width="102">Печать:</td>
+    <td colspan="2">&lt;%= @order.print_method.name rescue '' %&gt;</td>
+    <td colspan="2" rowspan="6" class="allborder">&nbsp;</td>
+    <td class="rightborder" width="5">&nbsp;</td>
+    <td width="1">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Тираж: </td>
+    <td colspan="2">&lt;%= @order.circulation %&gt;</td>
+    <td class="rightborder">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>Сумма к оплате</td>
+    <td>&lt;%= @order.price %&gt; рублей </td>
+  </tr>
+  <tr>
+    <td>Цветность: </td>
+    <td colspan="2"> &lt;%= @order.colors %&gt; </td>
+    <td class="rightborder">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td> Оплатить </td>
+    <td>до &lt;%= @order.pay_till.to_date %&gt; </td>
+  </tr>
+  <tr>
+    <td>Материал</td>
+    <td colspan="2"> &lt;%= @order.material.name %&gt; </td>
+    <td class="rightborder">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Плотность</td>
+    <td colspan="2"> &lt;%= @order.material_density %&gt; </td>
+    <td class="rightborder">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>Тираж</td>
+    <td>&lt;%= @order.circulation %&gt;</td>
+  </tr>
+  <tr>
+    <td>Формат</td>
+    <td colspan="2">&lt;%= @order.format_w %&gt; мм x &lt;%= @order.format_h %&gt; мм</td>
+    <td class="rightborder">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>Формат</td>
+    <td>&lt;%= @order.format_w %&gt;мм x &lt;%= @order.format_h %&gt;мм</td>
+  </tr>
+  <tr>
+    <td>Цветопроба:<br /></td>
+    <td><span class="allborder">&lt;%= @order.is_colorprobe%&gt;</span></td>
+    <td colspan="3"><p><strong><em>цветопробу утверждаю</em></strong><em>:</em><br />
+    _______________________________________</p></td>
+    <td class="rightborder">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>Цветность</td>
+    <td>&lt;%= @order.colors %&gt;</td>
+  </tr>
+  <tr>
+    <td colspan="5" rowspan="4" class="allborder" valign="top">Описание:&lt;%= @order.design_tasks %&gt; &lt;%= @order.processing %&gt; &lt;%= @order.comment %&gt;</td>
+    <td class="rightborder">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>Материал</td>
+    <td>&lt;%= @order.material.name %&gt;</td>
+  </tr>
+  <tr>
+    <td class="rightborder">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>Плотность</td>
+    <td>&lt;%= @order.material_density %&gt;</td>
+  </tr>
+  <tr>
+    <td class="rightborder">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>Цветопроба:</td>
+    <td><span class="allborder">&lt;%= @order.is_colorprobe%&gt;</span></td>
+  </tr>
+  <tr>
+    <td class="rightborder">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td colspan="2" rowspan="4" class="allborder" valign="top">Описание: &lt;%= @order.design_tasks %&gt; <br />
+    &lt;%= @order.processing %&gt; &lt;%= @order.comment %&gt;</td>
+  </tr>
+  <tr>
+    <td colspan="5">Постпечатная  обработка    </td>
+    <td class="rightborder">&nbsp;
+      
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="5" rowspan="2" class="allborder">
+    &lt;% if @order.pp_cutting == true then %&gt; Резка &lt;% end %&gt;
+      &nbsp;
+      &lt;% if @order.pp_lamination == true then %&gt; Ламинация &lt;% end %&gt;
+      &nbsp;
+      &lt;% if @order.pp_composition == true then %&gt; Сборка &lt;% end %&gt;
+      &nbsp;
+      &lt;% if @order.pp_foiling == true then %&gt;  Фольгирование &lt;% end %&gt;
+      &nbsp;
+      &lt;% if @order.pp_spring == true then %&gt; Пружина &lt;% end %&gt;
+      &nbsp;
+      &lt;% if @order.pp_twining == true then %&gt; Переплёт &lt;% end %&gt;
+      &nbsp;
+      &lt;%= @order.pp_falze_tag %&gt;
+      &nbsp;
+      &lt;%= @order.pp_bigging_tag %&gt;
+      &nbsp;
+      &lt;% if @order.pp_rounding == true then %&gt; Скругление углов &lt;% end %&gt;
+    </td>
+    
+    <td class="rightborder">&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="rightborder">&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="right">Заказ готов </td>
+    <td colspan="4" class="bottomborder">&nbsp;</td>
+    <td class="rightborder">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td colspan="2">Постпечатная обработка</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td colspan="3" class="podpis1">Дата и время готовности заказа. Фио проверяющего</td>
+    <td class="rightborder">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td colspan="2" rowspan="2" class="allborder" valign="top">
+      &lt;% if @order.pp_cutting == true then %&gt; Резка &lt;% end %&gt;
+      &nbsp;      
+      &lt;% if @order.pp_lamination == true then %&gt;
+      Ламинация
+      &lt;% end %&gt;
+      &nbsp;
+      &lt;% if @order.pp_composition == true then %&gt; Сборка &lt;% end %&gt;
+      &nbsp;
+      &lt;% if @order.pp_foiling == true then %&gt;  Фольгирование &lt;% end %&gt;
+      &nbsp;
+      &lt;% if @order.pp_spring == true then %&gt; Пружина &lt;% end %&gt;
+      &nbsp;
+       &lt;% if @order.pp_twining == true then %&gt; Переплёт &lt;% end %&gt;
+        &nbsp;
+    &lt;%= @order.pp_falze_tag %&gt;
+     &nbsp;
+    &lt;%= @order.pp_bigging_tag %&gt;
+     &nbsp;
+     &lt;% if @order.pp_rounding == true then %&gt; Скругление углов &lt;% end %&gt;   
+    </td>
+
+  </tr>
+  <tr>
+    <td colspan="5" class="topborder" height="38" valign="top"> Заказчик: <strong>&lt;%= @order.user.name %&gt;</strong></td>
+    <td class="rightborder">&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Представитель</td>
+    <td colspan="4">: &lt;%= @order.user.contact_fio%&gt; т. &lt;%= @order.user.phone %&gt;</td>
+    <td class="rightborder">&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="3" rowspan="2" class="allborder" valign="top">Адрес доставки: &lt;%= @order.delivery_to %&gt;</td>
+    <td colspan="2"><strong><em>Документы мной получены, заказ принят, претензий нет</em></strong></td>
+    <td class="rightborder">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td colspan="2">Подпись _______________________</td>
+  </tr>
+  <tr>
+    <td colspan="2" rowspan="2" class="allborder">&nbsp;</td>
+    <td class="rightborder">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">Курьер</td>
+    <td class="allborder" align="center" width="83">авто</td>
+    <td class="rightborder">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td colspan="2"><span class="podpis1">Информацию о готовности заказа можно получить по т. +7 495 649-48-76</span></td>
+  </tr>
+  <tr>
+    <td colspan="9">&nbsp;</td>
+  </tr>
+</tbody></table>
+<table border="1" cellpadding="0" cellspacing="0" width="1004">
+  <tbody><tr>
+    <td><table cellpadding="0" cellspacing="0">
+      <col width="169" />
+      <col width="157" />
+      <col width="167" />
+      <col width="130" />
+      <col width="62" />
+      <col width="94" />
+      <col width="38" />
+      <col width="151" />
+      <col width="256" />
+      <tbody><tr>
+        <td colspan="2" rowspan="11" valign="bottom"><p>ИЗВЕЩЕНИЕ</p>
+          <p>Кассир</p></td>
+        <td colspan="2"><strong>Получатель    платежа</strong></td>
+        <td colspan="5"><strong>ИП Савко Вадим Геннадиевич</strong></td>
+      </tr>
+      <tr>
+        <td colspan="6"><strong>Счет:40802810900000009871&nbsp; ИНН772744907705&nbsp; ЕГРИП312774630700839&nbsp;&nbsp; &nbsp;</strong></td>
+        <td width="166">&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan="7">
+Наименование банка: ПАО «ПРОМСВЯЗЬБАНК» Г.МОСКВА<strong> </strong></td>
+      </tr>
+      <tr>
+        <td colspan="7"><strong>БИК 044525555 К/С 30101810400000000555 </strong></td>
+        </tr>
+      <tr>
+        <td width="161">Плательщик</td>
+        <td colspan="2">Физическое лицо</td>
+        <td colspan="4"><span class="bottomborder">: тел.:&lt;%= @order.user.phone %&gt;</span></td>
+        </tr>
+      <tr>
+        <td colspan="7">Ф.И.О.&lt;%= @order.user.contact_fio%&gt;</td>
+        </tr>
+      <tr>
+        <td colspan="7" class="bottomborder">Адрес:&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan="5" class="allborder" align="center" height="28">Назначение платежа:</td>
+        <td class="allborder" align="center" width="253">Дата</td>
+        <td class="allborder" align="center">Сумма</td>
+      </tr>
+      <tr>
+        <td colspan="5" class="allborder" height="28">Оказание услуг по Договору № <strong>&lt;%= @order.id %&gt;</strong></td>
+        <td class="allborder"><strong><span class="podpis1"> &lt;%=@order.created_at.strftime('%d.%m.%Y ')  %&gt;</span></strong></td>
+        <td class="allborder">&lt;%= @order.price %&gt;</td>
+      </tr>
+      <tr>
+        <td colspan="5" class="allborder">&nbsp;</td>
+        <td class="allborder">без НДС</td>
+        <td class="allborder">&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan="7" height="47">Подпись плательщика</td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="9">&nbsp;</td>
+        <td colspan="2"><strong>Получатель    платежа</strong></td>
+       <td colspan="5"><strong>ИП Савко Вадим Геннадиевич</strong></td>
+      </tr>
+      <tr>
+        <td colspan="6"><strong>Счет:40802810900000009871&nbsp; ИНН772744907705&nbsp; ЕГРИП312774630700839&nbsp;&nbsp; &nbsp;</strong></td>
+        <td width="166">&nbsp;</td>
+      </tr>
+      <tr style="font-weight: bold;">
+        <td colspan="7">
+Наименование банка: ПАО «ПРОМСВЯЗЬБАНК» Г.МОСКВА</td>
+      </tr>
+      <tr style="font-weight: bold;">
+        <td colspan="7">БИК 044525555 К/С 30101810400000000555</td>
+        </tr>
+      <tr>
+        <td>Плательщик</td>
+        <td colspan="2"> Физическое лицо</td>
+        <td colspan="4"><span class="bottomborder">: тел.: &lt;%= @order.user.phone %&gt;</span></td>
+        </tr>
+      <tr>
+        <td colspan="7">Ф.И.О.&lt;%= @order.user.contact_fio%&gt;</td>
+      </tr>
+      <tr>
+        <td>Адрес:</td>
+        <td colspan="4">&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan="5" class="allborder" align="center" height="29">Назначение платежа:</td>
+        <td class="allborder" align="center">Дата</td>
+        <td class="allborder" align="center">Сумма</td>
+        </tr>
+      <tr>
+        <td colspan="5" class="allborder" height="29">Оказание услуг по Договору № <strong>&lt;%= @order.id %&gt;</strong></td>
+        <td class="allborder"><strong><span class="podpis1">&lt;%=@order.created_at.strftime('%d.%m.%Y ')  %&gt;</span></strong></td>
+        <td class="allborder">&lt;%= @order.price %&gt;</td>
+      </tr>
+      <tr>
+        <td width="88">Кассир</td>
+        <td width="141"></td>
+        <td colspan="5" class="allborder">&nbsp;</td>
+        <td class="allborder">без НДС </td>
+        <td class="allborder">&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan="2" height="30">КВИТАЦИЯ</td>
+        <td colspan="7">Подпись плательщика</td>
+      </tr>
+      <tr>
+        <td colspan="9" height="22"></td>
+      </tr>
+    </tbody></table></td>
+  </tr>
+</tbody></table>
+<br />
+<table border="0" cellpadding="0" cellspacing="0" width="1006">
+  <tbody><tr>
+    <td width="1006"><h3><strong>Доверенность</strong>, 
+      простая письменная форма, выдана в г.Москва, <strong><span class="podpis1">&lt;%=Time.now.strftime('%d.%m.%Y')  %&gt;</span></strong><br />
+Я, &lt;%= @order.user.contact_fio%&gt;, <br />паспорт . . . . . . . . . . .№.
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+выдан. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . дата выдачи . . . . . . . . . . . . .. . .
+. . . . . . . . . . . . доверяю, Некрасову Александру Сергеевичу ,
+внести сумму в размере &lt;%= @order.price %&gt; рублей в Сбербанк ОАО.
+<br />
+      Подписано собственноручно, в присутствии 2 (двух) свидетелей. <br />
+..........................................................\. . . . . .
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . ..</h3></td>
+  </tr>
+</tbody></table>
+</body></html>

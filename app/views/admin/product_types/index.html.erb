@@ -1,0 +1,14 @@
+<h1>Виды продукции</h1>
+<% if @pts.blank? %>
+	Список видов продукции пуст.
+<% else %>
+	<ul>
+		<% for pt in @pts %>
+			<li><%= link_to pt.name, edit_admin_product_type_url (pt) %>&nbsp;(<%= link_to 'Удалить', [:admin, pt], :confirm => 'Вы действительно хотите удалить этот вид продукции?', :method => 'delete' %>)</li>
+		<% end %>
+	</ul>
+<% end %>
+
+<p>
+	<%= link_to 'Добавить вид продукции', new_admin_product_type_url %>
+</p>

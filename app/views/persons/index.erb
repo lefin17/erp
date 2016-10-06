@@ -1,0 +1,40 @@
+<h1>Список персон</h1>
+
+<% unless @persons.blank? %>
+<table class="grid">
+<thead>
+  <th>Логин</th>
+  <th>Имя</th>
+  <th>Клиент</th>
+  <th>Email</th>
+  <th>Телефон</th>
+  <th>Телефон, моб.</th>
+  <th>Комментарий</th>
+</thead>
+<tbody>
+
+<% for person in @persons %>
+<tr>
+  <td><%= link_to person.login, person_url(person.id) %></td>
+  <td><%= person.fio %></td>
+  <td><%= person.user.name if person.user %></td>
+  <td><a href="mailto:<%= person.email %>"><%= person.email %></a></td>
+  <td><%= person.phone %></td>
+  <td><%= person.phone_mobile %></td>
+  <td><%= person.comment %></td>
+</tr>
+<% end %>
+</tbody>
+</table>
+<%= will_paginate @persons %>
+
+<!--Проверка -->	
+	
+	<p>
+	Мало персон? <%= link_to 'Создайте еще!', new_person_url %>
+	</p>
+       <%# debug(person) %>
+
+<% else %>
+  Пока нет персон, очень жаль :-( Но вы можете <%= link_to 'создать их!', new_person_url %>
+<% end %>

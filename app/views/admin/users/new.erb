@@ -1,0 +1,10 @@
+<h1>Новый пользователь</h1>
+
+<% form_for(@user, :url => admin_users_path) do |f| %>
+
+  <%= render :partial => "fields", :locals => {:f => f} %>
+	
+  <%= submit_tag 'Создать' %>
+
+<% end %>
+

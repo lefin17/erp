@@ -1,0 +1,80 @@
+.product_fields
+.form_row.input.select
+  = f.label :product_type_id, "Вид продукции:"
+  = f.collection_select 'product_type_id', ProductType.all, :id, :name
+  .error
+    = error_message_on :order, :product_type_id
+
+.form_row.input.radio
+  = f.label :is_mysqlf_print_method, "Кто печатает:"
+  .choices
+    = f.radio_button :is_mysqlf_print_method, true
+    = f.label [:is_mysqlf_print_method, true], "Печатаем сами"
+    %br
+    = f.radio_button :is_mysqlf_print_method, false
+    = f.label [:is_mysqlf_print_method, false], "Печатает контрагент"
+  .error
+    = error_message_on :order, :is_mysqlf_print_method
+
+.form_row.input.select
+  = f.label :contractor_id, "Контрагент:"
+  = f.collection_select :contractor_id, Contractor.find(:all, :order => 'name asc'), :id, :name, {:include_blank => true}
+  .error
+    = error_message_on :order, :contractor_id
+
+.form_row.input.select
+  = f.label :print_method_id, "Способ печати:"
+  = f.collection_select :print_method_id, PrintMethod.get_list, :id, :name, {:include_blank => true}
+  .error
+    = error_message_on :order, :print_method_id
+
+.form_row.input.text
+  = f.label :format, "Обрезной формат:"
+  = f.text_field :format_w, :size=>5
+  x
+  = f.text_field :format_h, :size=>5
+  .error
+    = error_message_on :order, :format_w
+    = error_message_on :order, :format_h
+
+.form_row.input.text
+  = f.label :circulation, "Тираж:"
+  = f.text_field :circulation, :size=>5
+  .error
+    = error_message_on :order, :circulation
+
+.form_row.input.text
+  = f.label :colors, "Цветность:"
+  = f.text_field :colors, :size=>5
+  .error
+    = error_message_on :order, :colors
+
+.form_row.input.select
+  = f.label :material_id, "Материал:"
+  = f.collection_select :material_id, Material.find(:all, :order => 'name asc'), :id, :name
+  .error
+    = error_message_on :order, :material_id
+
+.form_row.input.text
+  = f.label :material_density, "Плотность материала:"
+  = f.text_field :material_density, :size=>5
+  .error
+    = error_message_on :order, :material_density
+
+.form_row.input.checkboxes
+  = f.label :postprint, "Постпечать:"
+  .choices
+    = render :partial => 'postprints', :locals => {:f => f}
+
+
+.form_row.input.textarea
+  = f.label :design_tasks, "Работы по дизайну:"
+  = f.text_area :design_tasks, :rows => 3, :class => 'fast-list-dst'
+  %br
+  = fast_links :order_design_tasks, Order.available_design_tasks
+  .error
+    = error_message_on :order, :design_tasks
+
+.form_row.input.checkbox
+  = f.check_box :is_colorprobe
+  = f.label :is_colorprobe, "Нужна цветопроба"

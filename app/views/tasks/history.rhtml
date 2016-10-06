@@ -1,0 +1,15 @@
+<h1>Контакты с клиентом</h1>
+<p><%= link_to 'Создать новую задачу', new_task_url %> | <%= link_to 'Текущие задачи', tasks_url %></p>
+
+<fieldset><legend>История выполненных задач</legend>
+  <fieldset><legend>Фильтры</legend>
+    <% form_for :filter_current, tasks_url, :html => {:method => :get} do |f| -%>
+      <% if @g_user.admin? %>
+        Исполнитель: <%= select_tag "user_perfomed", options_for_select(employee_for_select('Все'),@uid.to_i), :include_blank => false, :onchange => "submit()" -%>
+      <% end %>
+      Тип <%= select_tag "type_perfomed", type_for_select(params[:type_perfomed]), :include_blank => false, :onchange => "submit()" -%>
+      Старые контакты:  <%= select_tag "show_perfomed", big_period_for_select(params[:show_perfomed]), :include_blank => false, :onchange => "submit()" -%><br />
+    <% end -%>
+  </fieldset>
+  <%= render :partial => 'peformedtasks' -%>
+</fieldset>

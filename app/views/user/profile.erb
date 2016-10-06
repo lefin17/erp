@@ -1,0 +1,44 @@
+<h1>Мой профиль</h1>
+
+<h2>Личные данные</h2>
+<% form_for :user do |f| %>
+	<%= hidden_field_tag 'form', 'pdata' %>
+
+	<dl>
+		<dt><label for="user_name">Имя</label></dt>
+		<dd><%= f.text_field :name %></dd>
+		<dd class="error"><%= error_message_on :user, :name %></dd>
+
+		<dt><label for="user_email">Email</label></dt>
+		<dd><%= f.text_field :email %></dd>
+		<dd class="error"><%= error_message_on :user, :email %></dd>
+
+		<dt><label for="user_phone">Телефон</label></dt>
+		<dd><%= f.text_field :phone %></dd>
+		<dd class="error"><%= error_message_on :user, :phone %></dd>
+
+		<dt><label for="user_phone_mobile">Телефон, моб.</label></dt>
+		<dd><%= f.text_field :phone_mobile %></dd>
+		<dd class="error"><%= error_message_on :user, :phone_mobile %></dd>
+	</dl>
+
+	<%= submit_tag 'Сохранить' %>
+
+<% end %>
+
+<h2>Смена пароля</h2>
+<% form_for :user do |f| %>
+	<%= hidden_field_tag 'form', 'password' %>
+
+	<dl>
+		<dt><label for="user_pass">Пароль</label></dt>
+		<dd><%= f.password_field :pass %></dd>
+		<dd class="error"><%= error_message_on :user, :pass %></dd>
+
+		<dt><label for="user_pass2">Пароль ещё раз</label></dt>
+		<dd><%= password_field_tag 'user[pass2]'%></dd>
+	</dl>
+
+	<%= submit_tag 'Изменить' %>
+
+<% end %>

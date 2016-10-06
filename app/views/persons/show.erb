@@ -1,0 +1,31 @@
+<h1>Персона &laquo;<%= @person.fio %>&raquo;</h1>
+
+<%= link_to '&larr; К списку Персон', persons_url %>
+
+<dl style="float:left;">
+	<dt>Логин:</dt>
+	<dd><%= @person.login %></dd>
+
+	<dt>Комментарий:</dt>
+	<dd><%= @person.comment %></dd>
+
+	<dt>Имя:</dt>
+	<dd><%= @person.fio %></dd>
+		
+
+	<dt>Email:</dt>
+	<dd><a href="mailto:<%= @person.email %>"><%= @person.email %></a></dd>
+
+	
+	<dt>Телефон:</dt>
+	<dd><%= @person.phone %></dd>
+
+	<dt>Телефон, моб.:</dt>
+	<dd><%= @person.phone_mobile %></dd>
+
+
+</dl>
+
+<div class="clear"></div>
+
+Что-то поменялось? Вы можете <%= link_to 'отредактировать', edit_person_url(@person) %> данные Персоны.

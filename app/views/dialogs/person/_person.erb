@@ -1,0 +1,39 @@
+<fieldset><legend>Фильтры</legend>
+<script type="text/javascript">
+  if ($('client_id').value > 0) {
+    $('f_client').value = $('client_name').value;
+  }
+</script>
+<% remote_form_for :filter, :url => {:action => :get_persons}, :html => {:name => 'frm_person'} do |f| %>
+  Имя: <%= text_field_tag 'f_fio' %>
+  Клиент: <%= text_field_tag 'f_client' %>
+  E-mail: <%= text_field_tag 'f_email' %>
+  Телефон: <%= text_field_tag 'f_phone' %>
+  <%= f.submit 'Фильтр' %>
+<% end %>
+</fieldset>
+<table border="1px" cellspacing="1px" cellpadding="5px" width="100%">
+<thead>
+  <th>Имя</th>
+  <th>Клиент</th>
+  <th>Email</th>
+  <th>Телефон</th>
+  <th>Телефон, моб.</th>
+  <th>Комментарий</th>
+</thead>
+<tbody id="persons_body">
+<%= render :partial => 'dialogs/person/rows' %>
+<% unless @persons.present? %>
+<div class="dlginfo">
+  <a class="b">Для отображения данных заполните фильтры:</a>
+  <ul>
+    <li>Имя</li>
+    <li>Клиент</li>
+    <li>mail</li>
+    <li>Телефон</li>
+  </ul>
+  <a class="b"> ... и нажмите кнопку "Фильтр", или клавишу "Enter" в поле фильтра. Все фильтры связаны логическим "И"</a>
+</div>
+<% end %>
+</tbody>
+</table>

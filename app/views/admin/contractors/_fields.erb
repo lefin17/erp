@@ -1,0 +1,84 @@
+<dl>
+  <dt><label for="contractor_name">Имя</label></dt>
+  <dd><%= f.text_field :name %></dd>
+  <dd class="error"><%= error_message_on :contractor, :name %></dd>
+
+  <dt><label for="contractor_email">Email</label></dt>
+  <dd><%= f.text_field :email %></dd>
+  <dd class="error"><%= error_message_on :contractor, :email %></dd>
+
+  <dt><label for="contractor_phone">Телефон</label></dt>
+  <dd><%= f.text_field :phone %></dd>
+  <dd class="error"><%= error_message_on :contractor, :phone %></dd>
+
+  <dt><label for="contractor_jur_name">Юр. лицо</label></dt>
+  <dd><%= f.text_field :jur_name %></dd>
+  <dd class="error"><%= error_message_on :contractor, :jur_name %></dd>
+
+  <dt><label for="contractor_jur_address">Юр. адрес</label></dt>
+  <dd><%= f.text_field :jur_address %></dd>
+  <dd class="error"><%= error_message_on :contractor, :jur_address %></dd>
+
+  <dt><label for="contractor_jur_inn">ИНН</label></dt>
+  <dd><%= f.text_field :jur_inn %></dd>
+  <dd class="error"><%= error_message_on :contractor, :jur_inn %></dd>
+
+  <dt><label for="contractor_jur_kpp">КПП</label></dt>
+  <dd><%= f.text_field :jur_kpp %></dd>
+  <dd class="error"><%= error_message_on :contractor, :jur_kpp %></dd>
+
+  <dt><label for="contractor_jur_account">Счёт №</label></dt>
+  <dd><%= f.text_field :jur_account %></dd>
+  <dd class="error"><%= error_message_on :contractor, :jur_account %></dd>
+
+  <dt><label for="contractor_jur_bank">Банк</label></dt>
+  <dd><%= f.text_field :jur_bank %></dd>
+  <dd class="error"><%= error_message_on :contractor, :jur_bank %></dd>
+
+  <dt><label for="contractor_jur_bik">БИК</label></dt>
+  <dd><%= f.text_field :jur_bik %></dd>
+  <dd class="error"><%= error_message_on :contractor, :jur_bik %></dd>
+
+  <dt><label for="contractor_jur_korr_account">к/с</label></dt>
+  <dd><%= f.text_field :jur_korr_account %></dd>
+  <dd class="error"><%= error_message_on :contractor, :jur_korr_account %></dd>
+
+  <dt><label for="notes">Комментарий</label></dt>
+  <dd><%= f.text_area :notes %></dd>
+  <dd class="error"><%= error_message_on :contractor, :notes %></dd>
+
+  <dt><label for="notes">Оборудование</label></dt>
+  <dd>
+  <div class="scrollbox">
+  <ul class="twin_ul">
+  <% get_printmethods.map do |pm| %>
+    <li>
+      <%= check_box_tag "contractor[contractorprintmethod_id][]", pm.id, @ca.print_methods.include?(pm) %>
+      <%= pm.name %>
+    </li>
+  <% end %>
+  </ul>
+  </div>
+  </dd>
+  <br class="clear" />
+  
+  <dt><label for="notes">Тип выпускаемой продукции</label></dt>
+  <dd>
+  <div class="scrollbox">
+  <ul class="twin_ul">
+  <% get_producttypes.map do |pm| %>
+    <li>
+      <%= check_box_tag "contractor[contactorproducttype_id][]", pm.id, @ca.product_types.include?(pm) %>
+      <%= pm.name %>
+    </li>
+  <% end %>
+  </ul>
+  </div>
+  </dd>
+  <br class="clear" />
+
+
+
+  
+
+</dl>

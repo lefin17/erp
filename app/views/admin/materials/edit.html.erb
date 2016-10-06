@@ -1,0 +1,6 @@
+<h1>Изменить материал</h1>
+
+<% form_for [:admin, @material] do |f| %>
+  <%= render :partial => "fields", :locals => {:f => f} %>
+  <%= submit_tag 'Сохранить' %>
+<% end %>

@@ -1,0 +1,18 @@
+<h1>Контрагенты</h1>
+<% if @cas.blank? %>
+  Список контрагентов пуст.
+<% else %>
+<ul>
+  <% for ca in @cas %>
+  <li><%= link_to ca.name, edit_admin_contractor_url(ca) %>&nbsp;(<%= link_to 'Удалить',
+    [:admin, ca], :confirm => 'Вы действительно хотите удалить этого контрагента?', :method => 'delete' %>)
+   <br />
+   <span class="b">Оборудование: </span><%= ca.show_print_methods  %><br />
+   <span class="b">Продукция: </span><%= ca.show_product_types %>
+  </li>
+<% end %>
+</ul>
+<% end %>
+<p>
+<%= link_to 'Добавить контрагента', new_admin_contractor_url %>
+</p>

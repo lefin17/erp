@@ -1,0 +1,20 @@
+<h1>Клиент &laquo;<%= @client.name %>&raquo;</h1>
+<h3>ответственный за клиента:
+<% if @client.owner %>
+  <%= @client.owner.name %>
+<% else %>
+  <%= link_to '(задать)', client_edit_url(@client) %>
+<% end %>
+</h3>
+<%= link_to 'Вернуться к списку клиентов', clients_url %> |
+<%= content_tag :span, 'Подробно о клиенте', :class => 'u',
+  :onclick => "slide('client_info')" -%> |
+<%= content_tag :span, 'Персоны клиента', :class => 'u',
+  :onclick => "slide('client_persons')" -%>
+<%= render :partial => 'detail' -%>
+<%= render :partial => 'orders' -%>
+<%= render :partial => 'persons' -%>
+<fieldset><legend>Текущие задачи для этого клиента</legend>
+  <%= link_to 'Создать новый контакт', new_task_url(:client => @client.id) -%><br /><br />
+  <%= render :partial => 'tasks/currenttasks' -%>
+</fieldset>

@@ -1,0 +1,4 @@
+<% form_for @companyaction, companyaction_url, {:method => :put} do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => 'form', :object => f %>
+<% end %>

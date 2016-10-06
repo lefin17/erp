@@ -1,0 +1,23 @@
+<dl>
+	
+	<dt><label for="person_fio">Имя</label></dt>
+	<dd><%= f.text_field :fio %></dd>
+	<dd class="error"><%= error_message_on :person, :fio %></dd>
+
+	<dt><label for="person_email">Email</label></dt>
+	<dd><%= f.text_field :email %></dd>
+	<dd class="error"><%= error_message_on :person, :email %></dd>	
+
+	<dt><label for="person_phone">Телефон</label></dt>
+	<dd><%= f.text_field :phone %></dd>
+	<dd class="error"><%= error_message_on :person, :phone %></dd>
+
+	<dt><label for="person_phone_mobile">Телефон, моб.</label></dt>
+	<dd><%= f.text_field :phone_mobile %></dd>
+	<dd class="error"><%= error_message_on :person, :phone_mobile %></dd>
+	
+	<dt><label for="person_comment">Комментарий</label></dt>
+	<dd><%= f.text_area :comment %></dd>
+	<dd class="error"><%= error_message_on :person, :comment %></dd>
+
+</dl>

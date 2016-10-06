@@ -1,0 +1,55 @@
+<% unless form.object.new_record? %>
+<fieldset>
+  <dt><label for="realized">Выполнен</label></dt>
+  <dd><%= form.check_box :realized %></dd>
+</fieldset>
+<% end %>
+<fieldset>
+  <dt><label for="realized_at">Дата выполнения</label></dt>
+  <dd><%= form.datetime_select(:realized_at) -%></dd>
+
+  <dt><label for="client_id">Клиент</label></dt>
+  <dd>
+    <%= text_field_tag :client_name, h(@task.client_name), :size => 50,
+      :disabled  => true %> - <%= link_to_remote 'выбрать',
+      :url => dialogshow_url('client'), :method => :GET -%>
+    <%= form.hidden_field(:client_id, :id => "client_id", :value => @task.client_id) -%>
+  </dd>
+
+  <dt><label for="person_id">Персона</label></dt>
+  <dd>
+    <%= text_field_tag :person_name, h(@task.person_name), :size => 50,
+      :disabled  => true %> - <%= link_to_remote 'выбрать', 
+      :url => dialogshow_url('person'), :method => :GET,
+      :with => "'client_id=' + $('client_id').value" %>
+    <%= form.hidden_field(:person_id, :id => "person_id") -%>
+  </dd>
+
+  <dt><label for="user_id">Исполнитель</label></dt>
+  <dd><%= form.select(:user_id, employee_for_select, {:include_blank => false}) %></dd>
+
+  <dt><label for="relevance">Важность</label></dt>
+  <dd><%= form.select(:relevance, relevance_for_select, {:include_blank => false}) %></dd>
+
+  <dt><label for="taskaction_id">Действие</label></dt>
+  <dd><%= form.select(:taskaction_id, type_for_select(nil,nil), {:include_blank => false}) %></dd>
+
+  <dt><label for="subject">Cуть действия</label></dt>
+  <dd><%= form.text_area :subject %></dd>
+
+  <% unless form.submit form.object.new_record? %>
+    <dt><label for="objection">Возражение</label></dt>
+    <dd><%= form.text_area :objection %></dd>
+  <% end %>
+
+  
+  <%= hidden_field_tag :formaction => 'edit' %>
+  <%= form.submit form.object.new_record? ? 'Создать' : 'Сохранить изменения' %>
+</fieldset>
+<% unless form.submit form.object.new_record? %>
+<fieldset><legend>история задач</legend>
+  <%= render :partial => 'currenttasks' %>
+</fieldset>
+<% end %>
+
+

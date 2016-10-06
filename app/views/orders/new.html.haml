@@ -1,0 +1,11 @@
+%h1
+  Новый заказ
+- form_for @order do |f|
+  = f.error_messages
+  .form_row.input.text
+    = label_tag :client_id, "Клиент:"
+    = text_field_tag :client_name, @client_name, :size => 50,:readonly => true, :onclick => remote_function(:url => dialogshow_url('client'), :method => :GET)
+    = f.hidden_field(:user_id, :id => "client_id")
+  = render :partial => "form", :locals => {:f => f}
+  .controls
+    = submit_tag 'Создать'

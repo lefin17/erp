@@ -1,0 +1,32 @@
+<h1>Listing dumps</h1>
+
+<table>
+  <tr>
+    <th>Пользователь</th>
+    <th>Кол-во таблиц</th>
+    <th>Статус</th>
+    <th>Заказан</th>
+    <th>Подготовлен</th>
+    <th>Actions</th>
+  </tr>
+
+<% @dumps.each do |dump| %>
+  <tr>
+    <td><%=h dump.user.name %></td>
+    <td><%= pluralize(dump.tables.size, 'table', 'tables')  %></td>
+    <td><%= dump.status %></td>
+    <td><%= dump.created_at %></td>
+    <td><%= dump.updated_at if dump.ready? %></td>
+    <td>
+      <%- if dump.ready? -%>
+        <%= link_to 'Download', dump %>
+      <%- end -%>
+      <%= link_to 'Cancel', dump, :confirm => 'Are you sure?', :method => :delete %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New dump', new_dump_path %>

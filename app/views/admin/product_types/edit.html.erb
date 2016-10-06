@@ -1,0 +1,6 @@
+<h1>Изменить вид продукции</h1>
+
+<% form_for [:admin, @pt] do |f| %>
+  <%= render :partial => "fields", :locals => {:f => f} %>
+  <%= submit_tag 'Сохранить' %>
+<% end %>

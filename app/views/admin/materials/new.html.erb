@@ -1,0 +1,6 @@
+<h1>Новый материал</h1>
+
+<% form_for(@material, :url => admin_materials_url) do |f| %>
+  <%= render :partial => "fields", :locals => {:f => f} %>
+  <%= submit_tag 'Создать' %>
+<% end %>

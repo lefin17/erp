@@ -1,0 +1,25 @@
+<fieldset id="orderinfo" style="display: none"><legend>Детали заказа</legend>
+<ul class="twin_ul">
+  <li>Дата оформления заказа: <span class="b"><%= relative_date @order.date_order -%></span></li>
+  <li>Дата сдачи: <span class="b"><%= relative_date @order.deadline %></span></li>
+  <li>Вид продукции: <span class="b"><%= @order.product_type.name if @order.product_type %></span></li>
+  <li>Кто печатает: <span class="b"><%= @order.whoprint %> <%= @order.contractor.name if @order.contractor %> </span></li>
+  <li>Способ печати: <span class="b"><%= @order.printmethod %></span></li>
+  <li>Обрезной формат: <span class="b"><%= @order.print_format %></span></li>
+  <li>Количество: <span class="b"><%= @order.circulation.to_i %></span></li>
+  <li>Цветность: <span class="b"><%= @order.colors %></span></li>
+  <li>Материал: <span class="b"><%= @order.material.name if @order.material  %></span></li>
+  <li>Постпечать: <span class="b"><%= @order.postprint %></span></li>
+  <li>Работы по дизайну: <span class="b"><%= @order.design_tasks %></span></li>
+  <li>Дата сдачи работ дизайнером: <span class="b"><%= relative_date @order.deadline %></span></li>
+  <li>Обработка: <span class="b"><%= @order.processing %></span></li>
+  <li>Доставка: <span class="b"><%= @order.delivering %></span></li>
+  <li>Цветопроба: <span class="b"><%= @order.colorprobe %></span></li>
+  <li>Комментарий: <span class="b"><%= @order.comment %></span></li>
+  <li>Флаг оплаты: <span class="b"><%= get_item_name_by_id(Order::PAYMENT_FLAGS, @order.payment_flag) %></span></li>
+  <li>Оплатить до: <span class="b"><%= relative_date @order.pay_till, false %></span></li>
+  <li>Цена: <span class="b"><%= @order.price %></span></li>
+  <li>Номер счёта: <span class="b"><%= @order.bill_no %></span></li>
+  <li>Дата счёта: <span class="b"><%= @order.bill_date %></span></li>
+</ul>
+</fieldset>

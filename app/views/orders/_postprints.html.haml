@@ -1,0 +1,45 @@
+.choice
+  = f.check_box :pp_cutting
+  = f.label :pp_cutting, "Резка"
+
+.choice
+  = f.check_box :pp_lamination
+  = f.label :pp_lamination, "Ламинация"
+  = f.text_field 'pp_lamination_tag', :size=>5
+  .error
+    = error_message_on :order, :pp_lamination_tag
+
+.choice
+  = f.check_box :pp_composition
+  = f.label :pp_composition, "Сборка"
+
+.choice
+  = f.check_box :pp_foiling
+  = f.label :pp_foiling, "Фольгирование"
+
+.choice
+  = f.check_box :pp_spring
+  = f.label :pp_spring, "Пружина"
+
+.choice
+  = f.check_box :pp_twining
+  = f.label :pp_twining, "Переплёт"
+
+.choice
+  = f.check_box :pp_falze
+  = f.label :pp_falze, "Фальцовка"
+  = f.text_field 'pp_falze_tag', :size=>5
+  .error
+    = error_message_on :order, :pp_falze_tag
+
+.choice
+  = f.check_box :pp_bigging
+  = f.label :pp_bigging, "Биговка"
+  = f.text_field 'pp_bigging_tag', :size=>5
+  .error
+    = error_message_on :order, :pp_bigging_tag
+
+.choice
+  = f.check_box :pp_rounding
+  = f.label :pp_rounding, "Скругление углов"
+

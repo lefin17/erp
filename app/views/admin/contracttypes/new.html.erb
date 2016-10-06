@@ -1,0 +1,4 @@
+<% form_for @contract, contracttypes_url do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => 'form', :object => f %>
+<% end %>

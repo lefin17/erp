@@ -1,0 +1,21 @@
+<tr class="<%= cycle("odd","even")%>">
+  <td valign="top">
+    <%= link_to client.login, client_view_url(client.id) %>
+    <%= link_to image_tag("icons/16/b_edit.png", :title => 'Редактировать'), client_edit_url(client) -%>
+    <%= link_to image_tag("icons/16/b_new.gif", :title => 'Создать заказ'), new_order_url('order[user_id]' => client.id) -%>
+    <%= link_to image_tag("icons/24/task_add.png", :title => 'Создать задачу'), new_task_url(:client => client.id) -%>
+    <%= link_to image_tag("icons/16/person.png", :title => 'Создать персону'), new_person_url(:client => client.id) -%>
+  </td>
+  <td valign="top" <%= client.style_color -%> >
+    <%= client.name %>
+  </td>
+  <td valign="top"><%= client.comment %></td>
+  <td valign="top"><a href="mailto:<%= client.email %>"><%= client.email %></a></td>
+  <td valign="top"><%= client.phone %></td>
+  <td valign="top"><%= client.phone_mobile %></td>
+  <td valign="top"><%= client.jur_name %></td>
+  <td valign="top"><%= client.owner.name if client.owner -%></td>
+  <td valign="top"><%= client.contracttype_name -%></td>
+  <td valign="top"><%= client.companyaction_name  -%></td>
+  <td valign="top"><%= client.userfrom_name  -%></td>
+</tr>

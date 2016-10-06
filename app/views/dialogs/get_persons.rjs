@@ -1,0 +1,1 @@
+page.replace_html 'persons_body', :partial => 'dialogs/person/rows'

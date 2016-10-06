@@ -1,0 +1,91 @@
+<dl>
+  <dt>    <label for="client_name">Название организации (имя) </label></dt>
+  <dd><%= f.text_field :name %> сначала пишется наименование без кавычек, в конце - форма собственности</dd>
+  <dd class="error"><%= error_message_on :client, :name %> </dd>
+
+  <dt><label for="client_fio">ФИО контактного лица</label></dt>
+  <dd><%= f.text_field :contact_fio %></dd>
+  <dd class="error"><%= error_message_on :client, :contact_fio %></dd>
+
+  <dt><label for="client_email">Email</label></dt>
+  <dd><%= f.text_field :email %></dd>
+  <dd class="error"><%= error_message_on :client, :email %></dd>
+
+  <dt><label for="client_site">Сайт</label></dt>
+  <dd><%= f.text_field :user_site %></dd>
+  <dd class="error"><%= error_message_on :client, :user_site %></dd>
+
+  <dt><label for="client_phone">Телефон рабочий\домашний </label></dt>
+  <dd><%= f.text_field :phone %></dd>
+  <dd class="error"><%= error_message_on :client, :phone %></dd>
+
+<dt><label for="client_phone_mobile">Телефон  мобильный</label></dt>
+  <dd><%= f.text_field :phone_mobile %></dd>
+  <dd class="error"><%= error_message_on :client, :phone_mobile %></dd>
+<dt><label for="client_adress_fact">Фактический адрес</label></dt>
+  <dd><%= f.text_field :adress_fact %></dd>
+  <dd class="error"><%= error_message_on :client, :adress_fact %></dd>
+<dt><label for="client_adress_delivery">Адрес доставки</label></dt>
+    <dd><%= f.text_field :adress_delivery %></dd>
+    <dd class="error"><%= error_message_on :client, :adress_delivery %></dd>
+
+<dt><label for="client_jur_name">Юр. лицо</label></dt>
+  <dd><%= f.text_field :jur_name %></dd>
+  <dd class="error"><%= error_message_on :client, :jur_name %></dd>
+
+  <dt><label for="client_jur_address">Юр. адрес</label></dt>
+  <dd><%= f.text_field :jur_address %> если клиент - ЧЛ, здесь указать адрес прописки</dd>
+  <dd class="error"><%= error_message_on :client, :jur_address %></dd>
+
+  <dt><label for="client_jur_inn">ИНН</label></dt>
+  <dd><%= f.text_field :jur_inn %> </dd>
+  <dd class="error"><%= error_message_on :client, :jur_inn %></dd>
+
+  <dt><label for="client_jur_kpp">КПП</label></dt>
+  <dd><%= f.text_field :jur_kpp %> если клиент ЧЛ - здесь указать номер паспорта</dd>
+  <dd class="error"><%= error_message_on :client, :jur_kpp %></dd>
+
+  <dt><label for="client_jur_account">Счёт №</label></dt>
+  <dd><%= f.text_field :jur_account %></dd>
+  <dd class="error"><%= error_message_on :client, :jur_account %></dd>
+
+  <dt><label for="client_jur_bank">Банк</label></dt>
+  <dd><%= f.text_field :jur_bank %> если клиент ЧЛ - здесь указать где и кем выдан паспорт</dd>
+  <dd class="error"><%= error_message_on :client, :jur_bank %></dd>
+
+  <dt><label for="client_jur_bik">БИК</label></dt>
+  <dd><%= f.text_field :jur_bik %> если клиент ЧЛ - здесь указать дату выдачи паспорта</dd>
+  <dd class="error"><%= error_message_on :client, :jur_bik %></dd>
+
+  <dt><label for="client_jur_korr_account">Кор./с</label></dt>
+  <dd><%= f.text_field :jur_korr_account %></dd>
+  <dd class="error"><%= error_message_on :client, :jur_korr_account %></dd>
+  <dt>Цвет:</dt>
+  <dd><script>initPicker('client[color]','<%= @client.color || '' %>',8);</script></dd>
+  <br>
+  <dt>Ответственный за клиента:</dt>
+  <% if @g_user.admin? %>
+  <dd>
+    <%= f.select 'owner_id', managers_for_select, {:include_blank => false} %>
+  </dd>
+  <% end %>
+  <dt>Тип договора</dt>
+  <dd>
+    <%= f.select 'contracttype_id', 
+      contracttypes_for_select, {:include_blank => false, :selected => contracttypes_default }
+    %>
+  </dd>
+  
+  <dt>Сфера деятельности компании</dt>
+  <dd>
+    <%= f.select 'companyaction_id', companyactions_for_select, {:include_blank => false} -%>
+  </dd>
+  
+  <dt>Откуда клиент</dt>
+  <dd>
+    <%= f.select 'userfrom_id', userfroms_for_select, {:include_blank => false} -%>
+  </dd>
+  <dt><label for="client_comment">Комментарий</label></dt>
+  <dd><%= f.text_area :comment %></dd>
+  <dd class="error"><%= error_message_on :client, :comment %></dd>
+</dl>

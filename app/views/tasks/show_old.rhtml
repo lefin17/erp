@@ -1,0 +1,62 @@
+<% form_for @task, tasks_url do |f| -%>
+<%= f.error_messages :header_message => "Запрос не прошел валидацию. Ошибок - #{@task.errors.size}",
+  :message => "Перечень ошибок смотри ниже"  -%>
+
+<fieldset>
+  <%= hidden_field_tag :formaction => 'show' %>
+  <dt><label for="realized">Я задачу выполнил</label></dt>
+  <% if @task.realized == 1 -%>
+    <dd class="b">Эта задача уже выполненна</dd>
+  <% else %>
+    <% if @task.person.present? -%>
+      <dd><%= f.check_box :realized -%></dd>
+    <% else %>
+      <dd class="b">Выполнение невозможно, нет персоны у клиента!!!</dd>
+    <% end %>
+  <% end %><br />  
+  <div>
+    <%= f.submit('Сохранить изменения', :confirm => "Вы подтверждаете сохранение?") if @task.can_edit? -%>
+  </div>
+</fieldset>
+<fieldset>
+  <dt>Дата выполнения</dt>
+  <dd class="b"><%= h @task.realized_at.to_formatted_s(:long) -%></dd>
+
+  <dt>Создатель контакта</dt>
+  <dd class="b"><%= h @task.from_user.name -%></dd>
+
+  <dt>Клиент</dt>
+  <dd class="b"><%= h @task.client.name -%></dd>
+
+  <dt>Персона</dt>
+  <% if @task.person.present?  %>
+    <dd class="b"><%= h(@task.person.name) if @task.person.present? -%></dd>
+  <% else %>
+    <dd><%= f.select(:person_id, @persons.map {|s| [s.fio || s.login, s.id]}, {:include_blank => false}) %></dd>
+  <% end %>
+
+  <% if @g_user.admin? %>
+    <dt>Исполнитель</dt>
+    <dd class="b"><%= h @task.user.name -%></dd>
+  <% end %>
+
+  <dt>Важность</dt>
+  <dd class="b"><%= h @task.relevance_name -%></dd>
+
+  <dt>Действие</dt>
+  <dd class="b"><%= Task::TASKACTIONS[@task.taskaction_id] -%></dd>
+
+  <dt>Cуть действия</dt>
+  <dd class="b"><%= h @task.subject -%></dd>
+
+  <dt><label for="result">Результат выполнения</label></dt>
+  <dd><%= f.text_area :result %></dd>
+  
+  <dt><label for="objection">Возражение</label></dt>
+  <dd><%= f.text_area :objection %></dd>
+  
+</fieldset>
+<% end %>
+<fieldset><legend>история задач</legend>
+  <%= render :partial => 'currenttasks' %>
+</fieldset>

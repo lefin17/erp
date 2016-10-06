@@ -1,0 +1,39 @@
+<html>
+<body>
+  <h3>Сообщение о выполненной задаче</h3>
+
+  <h4>Сообщаем Вам что задача выполненна. Детали задачи: </h4>
+
+  <dt>Дата задачи</dt>
+  <dd class="b"><%= @task.created_at.to_formatted_s(:long) -%></dd>
+  
+  <dt>Дата выполнения</dt>
+  <dd class="b"><%= @task.realized_at.to_formatted_s(:long) -%></dd>
+
+  <dt>Клиент</dt>
+  <dd class="b"><%= @task.client.name -%></dd>
+
+  <dt>Персона</dt>
+  <dd class="b"><%= @task.person.name -%></dd>
+
+  <dt>Исполнитель</dt>
+  <dd class="b"><%= @task.user.name -%></dd>
+
+  <dt>Важность</dt>
+  <dd class="b"><%= @task.relevance_name -%></dd>
+
+  <dt>Действие</dt>
+  <dd class="b"><%= Task::TASKACTIONS[@task.taskaction_id] -%></dd>
+
+  <dt>Cуть действия</dt>
+  <dd class="b"><%= @task.subject -%></dd>
+
+  <dt><label for="objection">Возражение</label></dt>
+  <dd><%= @task.objection %></dd>
+
+  <dt><label for="result">Результат выполнения</label></dt>
+  <dd><%= @task.result %></dd>
+  
+  <h4>Дата отправки: <%= Time.new.to_formatted_s(:short) %></h4>
+</body>
+</html>

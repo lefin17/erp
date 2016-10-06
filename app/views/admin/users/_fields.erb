@@ -1,0 +1,24 @@
+<dl>
+	<dt><label for="user_login">Логин:</label></dt>
+	<dd><%= f.text_field 'login' %></dd>
+	<dd class="error"><%= error_message_on :user, :login %></dd>
+
+	<dt><label for="user_pass">Пароль:</label></dt>
+	<dd><%= f.text_field 'pass' %></dd>
+	<dd class="error"><%= error_message_on :user, :pass %></dd>
+
+	<dt><label for="user_email">email:</label></dt>
+	<dd><%= f.text_field 'email' %></dd>
+	<dd class="error"><%= error_message_on :user, :email %></dd>
+
+	<dt><label for="user_phone_mobile">Телефон мобильный:</label></dt>
+	<dd><%= f.text_field 'phone_mobile' %></dd>
+	<dd class="error"><%= error_message_on :user, :phone_mobile %></dd>
+
+	<dt><label for="user_user_type">Тип пользователя:</label></dt>
+	<dd>
+		<%= select('user', 'user_type', User::USER_TYPES.reject{|i| i[1] == User::USER_TYPE_CLIENT}) %><br />
+		<em>Подсказка: клиентов можно создать через список клиентов.</em>
+	</dd>
+	<dd class="error"><%= error_message_on :user, :user_type %></dd>
+</dl>

@@ -1,0 +1,62 @@
+<% form_for @task, tasks_url do |f| -%>
+<%= f.error_messages :header_message => "Запрос не прошел валидацию. Ошибок - #{@task.errors.size}",
+  :message => "Перечень ошибок смотри ниже"  -%>
+
+<fieldset>
+  Дата выполнения (<span class="b"><%= relative_date Time.now,false %> </span>)
+  Задача поставлена (<span class="b"><%= relative_date @task.realized_at, false %> </span>)
+  Исполнитель <span class="b"><%= h @task.user.name %></span>
+  <br />
+  Создатель задачи <span class="b"><%= h @task.from_user.name -%> </span>
+  <br />
+  Клиент <span class="b"><%= link_to h(@task.client.name), client_view_url(@task.client.id) -%> </span>
+  телефон <span class="b"><%= h @task.client.phone if @task.client.phone -%> </span>
+  <span class="b">емайл <%= h @task.client.email if @task.client.email -%> </span>
+  <br />
+  Персона <% if @task.person.present?  %>
+    <span class="b"><%= link_to h(@task.person.name), person_url(@task.person.id) if @task.person.present? -%></span>
+  <% else %>
+    <span><%= f.select(:person_id, @persons.map {|s| [s.fio || s.login, s.id]}, {:include_blank => false}) %></span>>
+  <% end %>
+  телефон
+  <% if @task.person.present?  %>
+    <span class="b"><%= h(@task.person.phone) if @task.person.phone -%></span>
+  <% end %>
+  емайл
+  <% if @task.person.present?  %>
+    <span class="b"><%= h(@task.person.email) if @task.person.email -%></span>
+  <% end %>
+  <br />
+  Важность <span class="b"><%= h @task.relevance_name -%> </span>
+  <br />
+  Действие <span class="b"><%= Task::TASKACTIONS[@task.taskaction_id] -%> </span>
+  <br />
+  Cуть действия <span class="b"><%= h @task.subject -%></span>
+  <br />
+  <ul class="twin_ul">
+    <li><label for="result">Результат выполнения</label><br /><%= f.text_area :result %></li>
+    <li><label for="objection">Возражение</label><br /><%= f.text_area :objection %></li>
+  </ul>
+</fieldset>
+<fieldset>
+  <%= hidden_field_tag :formaction => 'show' %>
+  <label for="realized">Я задачу выполнил</label>
+  <% if @task.realized == 1 -%>
+    <dd class="b">Эта задача уже выполненна</dd>
+  <% else %>
+    <% if @task.person.present? -%>
+      <%= f.check_box :realized -%>
+    <% else %>
+      <dd class="b">Выполнение невозможно, нет персоны у клиента!!!</dd>
+    <% end %>
+  <% end %><br />
+  Создать следующий контакт <%= check_box_tag :createnext, 'yes', true -%>
+  <br />
+  <div>
+    <%= f.submit('Сохранить изменения', :confirm => "Вы подтверждаете сохранение?") if @task.can_edit? -%>
+  </div>
+</fieldset>
+<% end %>
+<fieldset><legend>история задач</legend>
+  <%= render :partial => 'currenttasks' %>
+</fieldset>

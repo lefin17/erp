@@ -1,0 +1,10 @@
+<% @persons.map do |person| -%>
+<tr class="rowselect" onclick="<%="dialog.select('person','#{person.fio || person.login}',#{person.id})" -%>">
+  <td><%= h person.fio %></td>
+  <td><%= h(person.user.name) if person.user %></td>
+  <td><%= h person.email -%></td>
+  <td><%= h person.phone %></td>
+  <td><%= h person.phone_mobile %></td>
+  <td><%= h person.comment -%></td>
+</tr>
+<% end if @persons.present? %>

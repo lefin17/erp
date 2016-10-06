@@ -1,0 +1,9 @@
+<%# tasks controller  %>
+<h1>Новое задание</h1>
+
+<% form_for @task, tasks_url do |f| -%>
+  <%= error_messages_for 'task', :header_message => "При вводе были допущены ошибки.",
+    :message => 'Перечень ошибок:'%>
+  <%= render :partial => 'form', :object => f -%>
+<% end -%>
+

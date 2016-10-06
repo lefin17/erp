@@ -1,0 +1,45 @@
+<table class="grid">
+  <tr>
+    <th>№</th>
+    <th>Клиент</th>
+    <th>Персона</th>
+    <% if @g_user.admin? %>
+      <th>Исполнитель</th>
+    <% end %>
+    <th>Действие</th>
+    <th>Важность</th>
+    <th>Состояние</th>
+    <th>Дата задачи</th>
+    <th>Дата исполнения</th>
+    <th>Суть действия</th>
+    <th>Возражения</th>
+    <th>Результат</th>
+    <% if @g_user.admin? %>
+      <th>Действия</th>
+    <% end %>
+  </tr>
+  <% @tasks.map do |row| -%>
+  <tr class="<%= cycle("odd","even")%>">
+    <td valign="top"><%= link_to "task-#{row.id}", task_url(row.id) -%></td>
+    <td valign="top" <%=  row.client.style_color -%> ><%= h row.client.name -%></td>
+    <td valign="top"><%= h(row.person.fio) if row.person.present?  -%></td>
+    <% if @g_user.admin? %>
+      <td valign="top"><%= h row.FIO -%></td>
+    <% end %>
+    <td valign="top"><%= h row.taskaction -%></td>
+    <td valign="top" class="<%= relevance_class(row.relevance) -%>"><%= row.relevance_name -%></td>
+    <td valign="top"><%= h row.status %></td>
+    <td valign="top"><%= h row.created_at.to_formatted_s(:short) -%></td>
+    <td valign="top"><%= h row.realized_at.to_formatted_s(:short) -%></td>
+    <td valign="top"><%= h row.subject -%></td>
+    <td valign="top"><%= h row.objection -%></td>
+    <td valign="top"><%= h row.result -%></td>
+    <% if @g_user.admin? %>
+      <td valign="top">
+        <%= link_to "Удал.", task_url(row.id), {:method => :delete, :confirm => 'Удалить?'} %><br />
+        <%= link_to "Редак.", edit_task_url(row.id) -%>
+      </td>
+    <% end %>
+  </tr>
+  <% end %>
+</table>

@@ -1,0 +1,21 @@
+<h1>Новый заказ</h1>
+<% form_for :order do |f| %>
+<%= f.error_messages %>
+
+<dt><label for="client_id">Клиент</label></dt>
+<dd>
+  <%= text_field_tag :client_name, @client_name, :size => 50,
+    :readonly => true,
+    :onclick => remote_function(:url => dialogshow_url('client'), :method => :GET) -%>
+  <%= f.hidden_field(:user_id, :id => "client_id") -%>
+</dd>
+
+<%#= text_field_tag 'client[name]', @name %>
+<%#*<div class="auto_complete" id="client_name_auto_complete"></div>%>
+<%#= auto_complete_field :client_name, :url => suggest_client_name_url, :min_chars=>2 %>
+<%#*Не нашёлся клиент? link_to 'Создайте его!', client_new_url, :popup => true %>
+
+<%= render :partial => "fields", :locals => {:f => f} %>
+<%= submit_tag 'Создать' %>
+
+<% end %>

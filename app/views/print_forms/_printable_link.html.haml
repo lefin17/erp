@@ -1,0 +1,6 @@
+.printable_links
+  .open_list
+  %ul{:style => "display: none;"}
+    - PrintForm.available(printable_object, current_user).each do |link|
+      %li
+        = link_to link.name, print_url(printable_object.id, link.id), :target => '_blank'

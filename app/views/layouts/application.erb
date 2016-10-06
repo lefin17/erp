@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <title><%= @page_title %> - Polygraph ERP</title>
+  <%= stylesheet_link_tag "style" %>
+  <%= stylesheet_link_tag "icons" %>
+  <link rel="icon" href="<%= image_path('/favicon.ico') %>" type="image/x-icon">
+  <link rel="shortcut icon" href="<%= image_path('/favicon.ico') %>" type="image/x-icon">
+  <%= javascript_include_tag :all %>
+  <%= calendar_date_select_includes :style => 'silver', :locale => 'ru' %>
+
+</head>
+<body>
+  <%= render :partial => 'shared/dialog' %>
+<div>
+	<% unless @g_user.blank? %>
+		Вы &mdash; <%= @g_user.login %>.&nbsp;Функции:&nbsp;
+	<% end %>
+	<a href="/">Главная страница</a>
+	<% unless @g_user.blank? -%>
+		<% case @g_user.user_type
+		when User::USER_TYPE_ADMIN, User::USER_TYPE_MANAGER -%>
+			<%= '&nbsp;|&nbsp;' + link_to('Клиенты', clients_url) + '&nbsp;|&nbsp;' +
+			link_to('Персоны', persons_url) %>
+		<% end %>
+                | <%= link_to 'Контакты с клиентом', tasks_url -%>
+                <%= '&nbsp;|&nbsp;' + link_to('Заказы', orders_url) + '&nbsp;|&nbsp;' +
+		link_to('Мой профиль', profile_url) + 
+		'&nbsp;|&nbsp;' + link_to('Выйти из системы', logout_url)
+		%>
+	<% end %><br />
+
+        <%= link_to("У Вас просроченно заданий: #{@count_yesterday}", tasks_url(:show => 'yesterday'), :class => 'b red') if @count_yesterday and @count_yesterday > 0 -%><br />
+        <%= link_to("Вам назначено на сегодня заданий: #{@count_today}", tasks_url(:show => 'today'), :class => 'b blue') if @count_today and @count_today > 0 -%><br />
+        
+</div>
+
+<%= content_tag(:div,flash[:notice], :id => 'flash_notice', :class => 'flash notice') if flash[:notice] %>
+<%= content_tag(:div,flash[:error], :id => 'flash_error', :class => 'flash error' ) if flash[:error] %>
+<%= javascript_tag(visual_effect(:fade,:flash_notice, :delay=>5, :duration => 1)) if flash[:notice] %>
+<%= javascript_tag(visual_effect(:fade,:flash_error, :delay=>5, :duration => 1)) if flash[:error] %>
+
+<%= yield %>
+  <div id="loading" class="loading" style="display:none;"> Loading... </div>
+  <div style="position: fixed; bottom: 0; right: 0px; padding-right: 5px; padding-left: 5px; font-size: 9px; background-color: #003333; color: white;">
+    <%= Rails.env %>
+  </div>
+</body>
+</html>

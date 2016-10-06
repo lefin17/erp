@@ -1,0 +1,115 @@
+<style type="text/css">
+.podpis1 {	font-size: 12px;
+	text-align: left;
+}
+</style>
+<span class="f18 b">Заказ № <%= @order.code_id %></span> от <span class="b">[<strong><span class="podpis1"><%=@order.created_at.strftime('%d.%m.%Y ')  %></span></strong></span><span class="b">]</span> : <% if ((@g_user.user_type == User::USER_TYPE_ADMIN) or (@g_user.user_type == User::USER_TYPE_MANAGER)) and (@step.status < 3) %>
+  <%= link_to image_tag("icons/16/b_edit.png", :title => 'редактировать заказ'), edit_order_url(@order.id) -%>
+<% end %>
+<%= link_to_function image_tag("icons/16/eye.png", :title => 'смотреть заказ'), "slide('orderinfo')" -%>
+ - от <span class="b">[<%= relative_date @order.created_at -%>] - [<%= link_to @order.manager.name, client_view_url(@order.manager.id) %>]</span>,
+клиент <span class="b">[<%= link_to @order.user.name, client_view_url(@order.user.id) %>]</span>,
+на изготовление <span class="b">[<%= @order.product_type.name %>]</span>,
+по счету <span class="b">[<%= @order.bill_no %>]</span>,
+от <span class="b">[<%= @order.bill_date %>]</span>,<br />
+Клиент <span class="b">[<%= link_to @order.user.name, client_view_url(@order.user.id) %>]</span>,
+<br />
+Оплата <span class="b">[<%= get_item_name_by_id(Order::PAYMENT_FLAGS, @order.payment_flag) %>]</span>,
+корректировал флаг платежа <span class="b">[<%= @order.user_l_payment %>]</span>,
+cумма к оплате <span class="b">[<%= @order.price %> рублей ]</span>,
+требуется оплатить до <span class="b">[<%= relative_date @order.pay_till, false %>]</span>
+<br />
+<br />
+Дата сдачи <span class="b">[<%= relative_date @order.deadline %>]</span>,
+тираж <span class="b">[<%= @order.circulation.to_i %>]</span>,
+формат <span class="b"><%= @order.print_format %></span>,
+материал <span class="b">[<%= @order.material.name if @order.material %>]</span>,
+обработка <span class="b">[<%= @order.processing %>]</span>.
+<br />
+комментарии <span class="b">[<%= @order.comment %>]</span>
+<br />
+<br />
+<%= render :partial => 'order_info' %>
+<% if @g_user.user_type == User::USER_TYPE_ADMIN || @g_user.user_type == User::USER_TYPE_BG%>
+<% form_for :order, :url => update_payment_order_path(@order) do |f| %>
+  <dt>Статус оплаты</dt>
+  <dd><%= f.select :payment_flag, Order::PAYMENT_FLAGS %><%= submit_tag 'ОК' %></dd>
+<% end %>
+<% else %>
+<% form_for :order, :url => update_payment_order_path(@order) do |f| %>
+  <dt>Статус оплаты</dt>
+  <dd><%= f.select :payment_flag, Order::PAYMENT_FLAGS_MANAGER %><%= submit_tag 'ОК' %></dd>
+<% end %>
+<% end %>
+
+
+<br />
+
+<dt>Текущий статус по заказу:</dt>
+<dd><span class="b"><%= get_item_name_by_id(Order::STATUSES, @order.status) %></span></dd>
+<br />
+
+<% if @g_user.user_type == User::USER_TYPE_ADMIN || @g_user.user_type == User::USER_TYPE_MANAGER%>
+<% form_for :order, :url => update_status_order_path(@order) do |f| %>
+<dt>сменить статус на</dt>
+<dd><%= f.select :status, Order::STATUSES %><%= submit_tag 'Сменить' %></dd>
+<% end %>
+<% end %>
+<br />
+	<% if @recipients.any? %>
+		<dt>Передать заказ:</dt>
+		<dd>
+			<dl>
+	<% form_for :step, :url => transfer_order_path(@order) do |f| %>
+    <%# form_for :step, :action=>"send_mail", :id =>@order.id do |f| %>
+
+<%= hidden_field_tag 'form', 'step' %>
+
+<dt>Комментарий:</dt>
+<dd><%= f.text_area :comment, :rows=>2 %></dd>
+
+
+
+<dt>Кому:</dt>
+<dd>
+<%= f.select :user_id, @recipients.map {|i| [i.name, i.id]} %>
+
+<%= submit_tag 'Передать' %>	
+
+				</dd>
+			<% end %>
+			</dl>
+		</dd>
+	<% end %>
+	
+
+	<dt>Передвижения заказа:</dt>
+	<dd>
+		<table border="1px" cellspacing="1px" cellpadding="3px">
+			<thead>
+				<tr>
+					<th>Кто</th>
+					<th>Что</th>
+					<th>Когда</th>
+					<th>Комментарий</th>
+					<th>Дополнительно</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% steps = @order.order_steps.find :all, :order => 'created_at desc' %>
+				<% if steps.blank? %>
+					<td colspan="0">Нет передвижений по заказу. Странно, правда. Рекомендуем рассказать об этом техническим специалистам.</td>
+				<% else %>
+					<% for step in steps %>
+					<tr>
+						<td><%= step.user.login %></td>
+						<td><%= get_item_name_by_id(OrderStep::STATUSES, step.status) %></td>
+						<td><%= relative_date step.created_at %></td>
+						<td><%= step.comment %></td>
+						<td><%= ('<em>отозван</em> ' + relative_date(step.updated_at)) if step.is_deprived %></td>
+					</tr>
+					<% end %>
+				<% end %>
+			</tbody>
+		</table>
+	</dd>

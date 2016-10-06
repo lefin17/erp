@@ -1,0 +1,10 @@
+<h1>Вида деятельности компании</h1>
+<%= link_to 'Добавить новую сферу деятельности компании', new_companyaction_url %>
+<ul>
+  <% @companyactions.map do |row| %>
+    <li><%= row.aname %> 
+        <%= link_to '(изменить)', edit_companyaction_url(row.id) %>
+        <%= link_to '(удалить)', companyaction_url(row.id), {:method => :delete} %>
+    </li>
+  <% end if @companyactions  %>
+</ul>

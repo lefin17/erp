@@ -1,0 +1,28 @@
+<fieldset style="display: none" id="client_persons"><legend>Персоны клиента</legend>
+  <%= content_tag :span, 'Закрыть персоны клиента', :class => 'u', :onclick => "slide('client_info')" -%> |
+  <%= link_to('Добавить персону', new_person_url(:client => @client.id)) %><br /><br />
+    <table cellpadding="5px" cellspacing="1px" border="1px">
+      <thead>
+        <tr>
+          <th>Имя</th>
+          <th>Email</th>
+          <th>Телефон</th>
+          <th>Телефон моб.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @client.persons.empty? %>
+          <td colspan="4">у этого клиента нет и никогда не было персон</td>
+        <% else %>
+          <% hlp_persons_of_client(@client.id).map do |o| %>
+            <tr>
+              <td><%= o.fio  %></td>
+              <td><%= o.email %></td>
+              <td><%= o.phone %></td>
+              <td><%= o.phone_mobile %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </fieldset>

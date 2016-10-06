@@ -1,0 +1,17 @@
+ru:
+  activerecord:
+    models:
+      order:
+        zero: Нет заказов
+        one: Заказ
+        few: Заказы
+        other: %{count} заказов
+    attributes:
+      order:
+        user: Клиент
+        user_id: Клиент
+        material_id: Метериал
+        print_method_id: Способ печати
+        format_w: Обрезной формат (ширина)
+        format_h: Обрезной формат (высота)
+        circulation: Тираж

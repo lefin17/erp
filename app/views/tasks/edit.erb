@@ -1,0 +1,6 @@
+<%# task contoller %>
+<h1>Задача: <%= "task-#{@task.id}" -%></h1>
+<% form_for @task, task_url do |f| -%>
+  <%= f.error_messages -%>
+  <%= render :partial =>'form', :object => f -%>
+<% end %>

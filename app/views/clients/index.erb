@@ -1,0 +1,32 @@
+<h1>Список клиентов</h1>
+<table class="grid">
+<% form_for :filter, clients_url, :html => {:name => 'frm_client'}  do |f| %>
+  <%= f.submit 'Фильтровать' %> Клиентов - <%= @clients.count %>
+  (<%= link_to_function 'сбросить фильтр', "$('f_name').value=''; 
+    $('f_email').value='';
+    $('f_phone').value='';
+    $('f_ur').value='';
+    $('f_manager_id').value='';
+    $(frm_client).submit(); "  %>)
+  | <%= link_to 'Создать нового клиента', client_new_url %>
+  <br /><br />
+  <thead>
+  <th><%= sortable 'login',"Логин" %></th>
+  <th><%= sortable 'name','Имя' %><br /><%= text_field_tag 'f_name',@f_name, :class => 'filter' %></th>
+  <th><%= sortable 'comment','Комментарий' %></th>
+  <th><%= sortable 'email','Email' %><br /><%= text_field_tag 'f_email',@f_email, :class => 'filter' %></th>
+  <th><%= sortable 'phone','Телефон' %><br /><%= text_field_tag 'f_phone',@f_phone, :class => 'filter' %></th>
+  <th><%= sortable 'phone_mobile','Телефон, моб.' %></th>
+  <th><%= sortable 'jur_name','Юр. лицо' %><br /><%= text_field_tag 'f_ur',@f_ur, :class => 'filter' %></th>
+  <th><%= sortable 'contact_fio','Ответственный' %><br /><%= select_tag 'f_manager_id', options_for_select([['Любой', '']] + @managers.map{ |m| ["#{m.name} (#{m.clients_count})", m.id.to_s]}, @f_manager_id), :onchange => "this.form.submit()", :class => 'filter' %></th>
+  <th><%= sortable 'contracttypes.aname','Договор' %></th>
+  <th><%= sortable 'companyactions.aname','Сфера деятельности' %></th>
+  <th><%= sortable 'userfroms.aname','Откуда' %></th>
+</thead>
+<% end %>
+<tbody>
+  <%= render :partial => 'client', :collection => @clients %>
+
+</tbody>
+</table>
+<div style="display:none;"> will_paginate @clients</div>

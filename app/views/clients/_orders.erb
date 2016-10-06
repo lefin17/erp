@@ -1,0 +1,32 @@
+<fieldset><legend>Заказы клиента</legend>
+  <%= link_to 'Добавить заказ', new_order_url('order[user_id]' => @client.id) %><br /><br />
+  <table cellpadding="5px" cellspacing="1px" border="1px">
+    <thead>
+      <tr>
+        <th>Дата</th>
+        <th>Номер</th>
+        <th>Вид продукции</th>
+        <th>Сумма</th>
+        <th>Оплата</th>
+        <th>Действие</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @client.orders.empty? %>
+        <td colspan="4">у этого клиента нет и никогда не было заказов</td>
+      <% else %>
+          <% for o in @client.orders.find :all, :order => 'updated_at desc' %>
+          <tr>
+            <td><%= relative_date(o.created_at) -%></td>
+            <td><%= link_to "Заказ №#{o.id}", order_url(o.id) %></td>
+            <td><%= o.product_type.name %></td>
+            <td><%= o.price %></td>
+            <td><%= get_item_name_by_id(Order::PAYMENT_FLAGS, o.payment_flag) %></td>
+            <td><%= printable_link(o) %></td>
+          </tr>          
+          <% end %>
+      <% end %>
+    </tbody>
+  </table>
+  
+  </fieldset>

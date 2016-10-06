@@ -1,0 +1,52 @@
+<% if !@g_user %>
+  <h1><%= link_to 'Войти в систему', :controller=>'user', :action=>'login' %></h1><br />
+<% else %>
+<% case @g_user.user_type when User::USER_TYPE_ADMIN %>
+  <h1>Вы &mdash; администратор</h1>
+  <fieldset><legend>Справочники системы</legend>
+    <ol class="admin_list">
+      <li><%= link_to 'Менеджер: Пользователей', admin_users_url %></li>
+      <li><%= link_to 'Менеджер: Виды продукции', admin_product_types_url %></li>
+      <li><%= link_to 'Менеджер: Способы печати', admin_print_methods_url %></li>
+      <li><%= link_to 'Менеджер: Материалы', admin_materials_url %></li>
+      <li><%= link_to 'Менеджер: Контрагентами', admin_contractors_url %></li>
+      <li><%= link_to 'Менеджер: Тип договора', contracttypes_url %></li>
+      <li><%= link_to 'Менеджер: Сфера деятельности компании', companyactions_url %></li>
+      <li><%= link_to 'Менеджер: Откуда клиент', userfroms_url %></li>
+      <li><%= link_to 'Менеджер: Печатные формы', admin_print_forms_url %></li>
+    </ol>
+  </fieldset>
+  <fieldset><legend>Объекты системы</legend>
+    <ol class="admin_list">
+      <li><%= link_to 'Заказы', orders_url %></li>
+      <li><%= link_to 'Клиенты', clients_url %></li>
+      <li><%= link_to 'Персоны', persons_url %></li>
+      <li><%= link_to 'Задачи', tasks_url %></li>
+      <li><%= link_to 'Дампы базы', dumps_url %></li>
+    </ol>
+  </fieldset>
+<% when User::USER_TYPE_CLIENT %>
+  <h1>Вы &mdash; клиент</h1>
+  <h2><%= link_to 'Мои заказы', orders_url %></h2>
+  <h2><%= link_to 'Персоны', persons_url %></h2>
+<% when User::USER_TYPE_MANAGER %>
+  <h1>Вы &mdash; менеджер</h1>
+  <h2><%= link_to 'Заказы', orders_url %></h2>
+  <h2><%= link_to 'Клиенты', clients_url %></h2>
+  <h2><%= link_to 'Персоны', persons_url %></h2>
+  <h2><%= link_to 'Контрагенты', admin_contractors_url %></h2>
+<% when User::USER_TYPE_DESIGNER %>
+  <h2><%= link_to 'Заказы', orders_url %></h2>
+  <h1>Вы &mdash; дизайнер</h1>
+<% when User::USER_TYPE_PRINTER %>
+  <h2><%= link_to 'Заказы', orders_url %></h2>
+  <h1>Вы &mdash; принтер :-)</h1>
+<% when User::USER_TYPE_BG %>
+  <h2><%= link_to 'Заказы', orders_url %></h2>
+  <h1>Вы &mdash; бухгалтер</h1>
+<% else %>
+  <h1>Вы &mdash; неизвестный тип пользователя :-/ Нам очень жаль!</h1>
+  <h2>Нет меню</h2>
+  <% end %>
+
+<% end %>

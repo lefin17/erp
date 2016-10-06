@@ -1,0 +1,7 @@
+<h1>Изменить пользователя</h1>
+
+<% form_for [:admin, @user] do |f| %>
+  <%= render :partial => "fields", :locals => {:f => f} %>
+  <%= submit_tag 'Сохранить' %>
+<% end %>
+

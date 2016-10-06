@@ -1,0 +1,14 @@
+development: &dev
+  adapter: mysql
+  database: artpolygraf_dev
+  username: root
+  password: 111
+  host: localhost
+
+test:
+  <<: *dev
+  database: perp_test
+
+production:
+  <<: *dev
+  database: artpolygraf

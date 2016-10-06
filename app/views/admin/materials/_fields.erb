@@ -1,0 +1,17 @@
+<dl>
+	<dt><label for="material_name">Наименование:</label></dt>
+	<dd><%= f.text_field 'name' %></dd>
+	<dd class="error"><%= error_message_on :material, :name %></dd>
+
+	<dt><label for="material_density">Плотность:</label></dt>
+	<dd><%= f.text_field 'density' %></dd>
+	<dd class="error"><%= error_message_on :material, :density %></dd>
+
+	<dt><label for="material_w">Ширина:</label></dt>
+	<dd><%= f.text_field 'w' %></dd>
+	<dd class="error"><%= error_message_on :material, :w %></dd>
+
+	<dt><label for="material_h">Высота:</label></dt>
+	<dd><%= f.text_field 'h' %></dd>
+	<dd class="error"><%= error_message_on :material, :h %></dd>
+</dl>

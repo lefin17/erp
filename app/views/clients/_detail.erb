@@ -1,0 +1,60 @@
+<fieldset style="display: none" id="client_info"><legend>Данные клиента</legend>
+  <p>
+    <%= link_to 'Редактировать данные клиента', client_edit_url(@client) %> |
+    <%= content_tag :span, 'Закрыть информацию клиенте', :class => 'u', :onclick => "slide('client_info')" -%>
+  </p>
+  
+  <dt>Логин:</dt>
+  <dd><%= @client.login %></dd>
+
+  <dt>Комментарий:</dt>
+  <dd><%= @client.comment %></dd>
+
+  <dt>Название клиента:</dt>
+  <dd><%= @client.name %></dd>
+
+  <dt>ФИО контактного лица:</dt>
+  <dd><%= @client.contact_fio %></dd>
+
+  <dt>Email:</dt>
+  <dd><a href="mailto:<%= @client.email %>"><%= @client.email %></a></dd>
+
+  <dt>Сайт:</dt>
+  <dd><a href="<%= @client.user_site %>"><%= @client.user_site %></a></dd>
+
+  <dt>Телефон:</dt>
+  <dd><%= @client.phone %></dd>
+
+  <dt>Телефон, моб.:</dt>
+  <dd><%= @client.phone_mobile %></dd>
+
+  <dt>Фактический адрес:</dt>
+  <dd><%= @client.adress_fact %></dd>
+
+  <dt>Адрес доставки:</dt>
+  <dd><%= @client.adress_delivery %></dd>
+
+  <dt>Юр. лицо:</dt>
+  <dd><%= @client.jur_name %></dd>
+
+  <dt>Юр. адрес:</dt>
+  <dd><%= @client.jur_address %></dd>
+
+  <dt>ИНН:</dt>
+  <dd><%= @client.jur_inn %></dd>
+
+  <dt>КПП:</dt>
+  <dd><%= @client.jur_kpp %></dd>
+
+  <dt>Счёт №:</dt>
+  <dd><%= @client.jur_account %></dd>
+
+  <dt>Банк:</dt>
+  <dd><%= @client.jur_bank %></dd>
+
+  <dt>БИК:</dt>
+  <dd><%= @client.jur_bik %></dd>
+
+  <dt>Кор./с:</dt>
+  <dd><%= @client.jur_korr_account %></dd>
+</fieldset>

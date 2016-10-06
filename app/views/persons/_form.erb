@@ -1,0 +1,50 @@
+<fieldset>
+<dl>
+  <dl>
+    <dt><label for="person_login">Логин</label></dt>
+    <dd><%= form.text_field :login %></dd>
+    <dd class="error"><%= error_message_on :person, :login %></dd>
+</dl>
+<dl>
+    <dt><label for="person_password">Пароль</label></dt>
+    <dd><%= form.text_field :password %></dd>
+    <dd class="error"><%= error_message_on :person, :password %></dd>
+</dl>  
+<dl>
+  <dt><label for="person_fio">Имя</label></dt>
+  <dd><%= form.text_field :fio %></dd>
+  <dd class="error"><%= error_message_on :person, :fio %></dd>
+</dl>
+<dl>
+  <dt><label for="person_email">Email</label></dt>
+  <dd><%= form.text_field :email %></dd>
+  <dd class="error"><%= error_message_on :person, :email %></dd>
+</dl>
+<dl>
+  <dt><label for="person_phone">Телефон</label></dt>
+  <dd><%= form.text_field :phone %></dd>
+  <dd class="error"><%= error_message_on :person, :phone %></dd>
+</dl>
+<dl>
+  <dt><label for="person_phone_mobile">Телефон, моб.</label></dt>
+  <dd><%= form.text_field :phone_mobile %></dd>
+  <dd class="error"><%= error_message_on :person, :phone_mobile %></dd>
+</dl>
+<dl>
+  <dt><label for="person_comment">Комментарий</label></dt>
+  <dd><%= form.text_area :comment %></dd>
+  <dd class="error"><%= error_message_on :person, :comment %></dd>
+</dl>
+</dl>
+  <% 
+  if params[:client].present?
+    client = params[:client].to_i
+  else
+    client = @person.user_id.to_i
+  end
+  %>
+  <%= form.select( :user_id, options_for_select(client_for_select,client), {:include_blank => true} ) -%>
+</fieldset>
+<br />
+<br />
+<%= form.submit form.object.new_record? ? 'Создать' : 'Изменить' -%>

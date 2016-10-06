@@ -1,0 +1,23 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+.podpis1 {	font-size: 12px;
+	text-align: left;
+}
+</style>
+</head>
+
+<body>
+Вам поступил 
+<%= link_to  "Заказ № #{@order.id.to_s} от  #{@order.created_at.strftime('%d.%m.%Y ')}" , order_url(@order) %>
+<br>
+от Менеджера <strong><%= @order.order_steps.first.user.name %></strong> <br>
+Состояние заказа: <%= get_item_name_by_id(Order::STATUSES, @order.status) %>
+<%# @order.status.to_s %>  
+<br>
+
+<br>
+Уточнить информацию по  заказу  можно по т. +7 495 6494876 
+</body>
+</html>

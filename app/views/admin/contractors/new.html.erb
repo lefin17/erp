@@ -1,0 +1,6 @@
+<h1>Новый контрагент</h1>
+
+<% form_for(@ca, :url => admin_contractors_url) do |f| %>
+  <%= render :partial => "fields", :locals => {:f => f} %>
+  <%= submit_tag 'Создать' %>
+<% end %>
