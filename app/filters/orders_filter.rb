@@ -18,6 +18,13 @@ class OrdersFilter < Struct.new(:from, :to, :manager_id, :status, :client_id, :s
 
       unless from.blank?
         scope = scope.later_than(from)
+      else 
+        # correction for orders filter 
+        # A. Poliansky
+        # 2016-10-07
+        t = Time.now
+        from = t - (60 * 60 * 24 * 180)
+        scope = scope.later_than(from)
       end
 
       unless to.blank?
