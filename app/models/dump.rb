@@ -12,7 +12,7 @@ class Dump < ActiveRecord::Base
   def prepare
     logger.info "[Dump#perpare] Prepare dump ##{id}"
     
-    dirname = "#{RAILS_ROOT}/dumps/#{Time.now.strftime('%Y%m%d%H%M%S')}"
+    dirname = "#{RAILS_ROOT}/dump/#{Time.now.strftime('%Y%m%d%H%M%S')}"
     archive = Archive.write_open_filename(dirname + '.tar.gz', Archive::COMPRESSION_GZIP, Archive::FORMAT_TAR)
     FileUtils.mkdir_p(dirname)
     tables.each do |table|
@@ -38,5 +38,5 @@ class Dump < ActiveRecord::Base
     update_attributes(:status => 'ready', :filename => dirname + '.tar.gz')
     Mail.deliver_dump_ready(self)
   end
-  handle_asynchronously :prepare
+#  handle_asynchronously :prepare
 end
