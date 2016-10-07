@@ -17,9 +17,8 @@ include ApplicationHelper
       @filter.manager_id = @g_user.id 
     end
     @orders = @filter.apply(Order)
-#   @order_count = @orders.count
     
-    @orders = @orders.paginate(:page => params[:page], :per_page => 50)
+    @orders = @orders.find(:all).paginate(:page => params[:page], :per_page => 25)
 
 
 
