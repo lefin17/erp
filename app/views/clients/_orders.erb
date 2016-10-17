@@ -17,12 +17,12 @@
       <% else %>
           <% for o in @client.orders.find :all, :order => 'updated_at desc' %>
           <% if o.product_type.nil? %>
-          <%	next %>
-    	  <%   end %>
+          <% next %>
+    	  <% end %>
           <tr>
             <td><%= relative_date(o.created_at) -%></td>
             <td><%= link_to "Заказ №#{o.id}", order_url(o.id) %></td>
-            <td><%=  o.product_type.name %></td>
+            <td><%= o.product_type.name %></td>
             <td><%= o.price %></td>
             <td><%= get_item_name_by_id(Order::PAYMENT_FLAGS, o.payment_flag) %></td>
             <td><%= printable_link(o) %></td>
