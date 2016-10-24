@@ -12,7 +12,7 @@
     <% if @g_user.admin? %>
       Исполнитель: <%= f.select :user_id, employee_for_select('Все'), :include_blank => false -%>
     <% end %>
-    Контакты: <%= f.select :period, period_for_select, {:include_blank => 'За все время'}, :onchange => 'togglePeriodVisibility(this)'-%>
+    Контакты: <%= f.select :period, period_for_select, {:include_blank => false }, :onchange => 'togglePeriodVisibility(this)'-%>
     <span id="custom_period_selector" style="display: <%= filter.custom_period? ? 'inline' : 'none' %>">
       с
       <%= f.calendar_date_select :from, :size => 8  %>
