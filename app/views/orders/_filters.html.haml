@@ -9,7 +9,8 @@
     = f.select :client_id, @recipients.map {|i| [i.name, i.id]}, {:include_blank => true}
       
     = f.label :period, "За период"
-    = f.select :period, period_for_select, {:include_blank => 'За все время'}, :onchange => 'togglePeriodVisibility(this)'
+    -#  'За все время'
+    = f.select :period, period_for_select, {:include_blank => false}, :onchange => 'togglePeriodVisibility(this)'
     %span#custom_period_selector{:style => "display: #{@filter.custom_period? ? 'inline' : 'none'}"}
       с
       = f.calendar_date_select :from, :size => 8

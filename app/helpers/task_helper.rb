@@ -18,11 +18,12 @@ module TaskHelper
 
   def period_for_select
     [
+      ["За этот Месяц (31 день)","month"],
       ["Вчерашние","yesterday"],
       ["Сегодня","today"],
       ["Завтра","tomorrow"],
       ["Неделя (7 дней)","week"],
-      ["За этот Месяц (31 день)","month"],
+      ["За все время", "alltime"],
       ["За прошлый Месяц","prevmonth"],
       ["За позапрошлый Месяц","prevmonth2"],
       #["Заданный", "custom"]

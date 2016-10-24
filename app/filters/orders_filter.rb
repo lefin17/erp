@@ -11,7 +11,10 @@ class OrdersFilter < Struct.new(:from, :to, :manager_id, :status, :client_id, :s
   end
 
   def apply(scope)
-    if period.present?
+   
+   self[:period] = "month" if period.to_s == ''
+
+   if period.present?
       if period.to_sym != :custom
         self[:from], self[:to] = self.class.range_by_period(period)
       end
