@@ -94,7 +94,7 @@
 					<%- end -%>
 				</td>        
         <td><%= get_item_name_by_id(Order::PAYMENT_FLAGS, order.payment_flag) %></td>
-        <td><%= relative_date(order.deadline) %></td>
+        <td><%= order.deadline.strftime("%d.%m") %></td>
 				<td>
                    <%= printable_link(order) %>
 					&nbsp;
