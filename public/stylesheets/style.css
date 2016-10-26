@@ -7,7 +7,10 @@ html,body {
 /*  TAGS  */
 img {border: none;}
 textarea {width: 50%; height: 60px;}
-table {border: 1px solid #DEDEDE}
+table {border: 1px solid #DEDEDE;
+border-collapse: collapse; 
+margin-bottom: 10px;}
+
 td {padding: 2px 5px}
 fieldset, form, label, legend {
 	margin: 0;
