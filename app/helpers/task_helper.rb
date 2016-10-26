@@ -26,6 +26,7 @@ module TaskHelper
       ["За все время", "alltime"],
       ["За прошлый Месяц","prevmonth"],
       ["За позапрошлый Месяц","prevmonth2"],
+      ["Текущий квартал", "quarter"],
       #["Заданный", "custom"]
     ]
 

@@ -61,6 +61,8 @@ class TasksFilter < Struct.new(:from, :to, :user_id, :period, :type)
         [nil, Date.today >> 1]
       when :more1month
         [Date.today >> 1, nil]
+      when :quarter
+        [Date.today.beginning_of_month.advance(:months => -2), Date.today.end_of_month]    
       when :more2month
         [Date.today >> 2, nil]
       when :more3month

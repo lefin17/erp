@@ -1,7 +1,8 @@
-class OrdersFilter < Struct.new(:from, :to, :manager_id, :status, :client_id, :soc, :sod, :period)
+class OrdersFilter < Struct.new(:from, :to, :manager_id, :status, :client_id, :soc, :sod, :period, :user_type)
 
   def initialize(*args)
     super(*args)
+    @@user_type = args.last[:user_type]
     if args.first.is_a?(Hash)
       values = HashWithIndifferentAccess.new(args.first)
       members.each do |member|
@@ -9,10 +10,15 @@ class OrdersFilter < Struct.new(:from, :to, :manager_id, :status, :client_id, :s
       end
     end
   end
-
+  
+  def self.user_type
+      @@user_type
+  end
+  
   def apply(scope)
-   
-   self[:period] = "month" if period.to_s == ''
+  
+    @@user_type == 1 ? range = "quarter" : range = "month"
+   self[:period] = range if period.to_s == ''
 
    if period.present?
       if period.to_sym != :custom
@@ -75,6 +81,8 @@ class OrdersFilter < Struct.new(:from, :to, :manager_id, :status, :client_id, :s
         [Date.today.beginning_of_week, Date.today.end_of_week]
       when :month
         [Date.today.beginning_of_month, Date.today.end_of_month]
+      when :quarter
+        [Date.today.beginning_of_month.advance(:months => -2), Date.today.end_of_month]
       when :prevmonth
         [Date.today.beginning_of_month.advance(:months => -1), Date.today.end_of_month.advance(:months => -1, :days => -1)]
       when :prevmonth2

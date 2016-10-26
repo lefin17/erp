@@ -10,8 +10,7 @@ include ApplicationHelper
     @recipients = User.find :all, :conditions => ['user_type IN(2)'], :order => 'name asc'
     
 		@page_title = 'Заказы'
-
-    @filter = OrdersFilter.new(params[:orders_filter])
+    @filter = OrdersFilter.new(params[:orders_filter], :user_type => @g_user[:user_type])
 
     unless @g_user.admin?
       @filter.manager_id = @g_user.id 
